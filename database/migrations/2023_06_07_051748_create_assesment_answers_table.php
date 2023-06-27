@@ -18,7 +18,7 @@ class CreateAssesmentAnswersTable extends Migration
             $table->unsignedBigInteger("question_id");
             $table->unsignedBigInteger("plan_id");
             $table->longText("answer");
-            $table->foreign("question_id")->references("id")->on("assement_questions");
+            $table->foreign("question_id")->references("id")->on("assesment_questions");
             $table->foreign("plan_id")->references("id")->on("plans")->onDelete("cascade");
             $table->timestamps();
         });
