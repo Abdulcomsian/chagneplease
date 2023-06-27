@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+/* all global css styling will be here */
+body {
+  font-family: "Poppins", sans-serif;
+}
+input,
+select,
+textarea {
+  box-shadow: none;
+}
+.btn:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Josefin Sans", sans-serif;
+}
+nav .btn {
+  padding: 15px 40px;
+  margin-left: 15px;
+}
+.btn-blue {
+  background: #3b7cee;
+  border-radius: 6px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #ffffff !important;
+}
+.btn-blue-outline {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  border: 1px solid #3b7cee;
+  border-radius: 6px;
+  color: #3b7cee;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+.text-blue {
+  color: #3b7cee;
+}
