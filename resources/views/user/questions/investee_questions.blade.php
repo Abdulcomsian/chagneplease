@@ -2793,36 +2793,36 @@ window.onload = function(){
   function setNextStep(i , itemId)
   {
 
-    switch(itemId){
-    case "market-step":
-      add_market_plan();
-    break;
-    case "traction":
-      add_traction_plan();
-    break;
-    case "team":
-      add_team_plan();
-    break;
-    case "competition":
-      add_competition_plan();
-    break;
-    case "financial":
-      add_financial_plan();
-    break;
-    case "intellectual-property":
-      add_intellectual_property_plan();
-    break;
-    case "business-model":
-      add_business_model_plan();
-    break;
-    case "funds":
-      add_funds_plan();
-    break;
-    case "corporate-structure":
-      add_corporate_structure_plan();
-    break;
+    // switch(itemId){
+    // case "market-step":
+    //   add_market_plan();
+    // break;
+    // case "traction":
+    //   add_traction_plan();
+    // break;
+    // case "team":
+    //   add_team_plan();
+    // break;
+    // case "competition":
+    //   add_competition_plan();
+    // break;
+    // case "financial":
+    //   add_financial_plan();
+    // break;
+    // case "intellectual-property":
+    //   add_intellectual_property_plan();
+    // break;
+    // case "business-model":
+    //   add_business_model_plan();
+    // break;
+    // case "funds":
+    //   add_funds_plan();
+    // break;
+    // case "corporate-structure":
+    //   add_corporate_structure_plan();
+    // break;
 
-    }
+    // }
 
      stepper[i].classList.add("completed");
      stepper[i].classList.remove("next");
