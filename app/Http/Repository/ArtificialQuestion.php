@@ -35,7 +35,7 @@ class ArtificialQuestion{
             $prompt .= "$question ?\n, Answer: $questionAnswer.. \n";
         }
 
-        $prompt .= " Below question are related to $questionType.. \n";
+        $prompt .= " Below question are related to $questionType Research section while applying for raising investment. \n";
 
         foreach($questionList as $qt)
         {
@@ -46,7 +46,7 @@ class ArtificialQuestion{
         }
 
       
-        $prompt .= "Please consider above $questionType question and also screening question, please create at least 6 more new questions related to $questionType question with no answer";
+        $prompt .= "Please consider above $questionType research question, please create at least 6 more questions related to $questionType question without answers, so that we can better understand user's company.'";
 
         $prompt .="Please create question in array form question format should be like 1) What is you current model? Please add a tag questionStart before starting question list?";
         
