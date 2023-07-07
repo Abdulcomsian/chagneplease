@@ -171,7 +171,94 @@ class Plan extends Model
         return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 1);
     }
 
-    
+    public function tractionAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 2);
+    }
 
+    public function tractionBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 2);
+    }
+
+    public function teamAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 3);
+    }
+
+    public function teamBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 3);
+    }
+
+    public function competitionAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 4);
+    }
+
+    public function competitionBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 4);
+    }
+
+    public function financialAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 5);
+    }
+
+    public function financialBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 5);
+    }
+
+    public function intellectualAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 6);
+    }
+
+    public function intellectualBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 6);
+    }
+
+    public function fundAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 7);
+    }
+
+    public function fundBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 7);
+    }
+
+    public function businessAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 8);
+    }
+
+    public function businessBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 8);
+    }
+
+    public function corporateAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 9);
+    }
+
+    public function corporateBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 9);
+    }
+
+    public function investmentAiQuestion()
+    {
+        return $this->hasOne(AiQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 10);
+    }
+
+    public function investmentBonusQuestion()
+    {
+        return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 10);
+    }
 
 }

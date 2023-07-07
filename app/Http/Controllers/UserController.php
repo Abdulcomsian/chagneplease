@@ -25,10 +25,18 @@ class UserController extends Controller
     public function get_investee_question_form(Request $request)
     {
 
-        $plan = Plan::with('Market', 'Team', 'Traction', 'Competition', 'BusinessModel', 'CorporateStructure', 'ExistingFinancial', 'Financial', 'Fund', 
-                           'IntellectualProperty' , 'marketAnswer.question', 'marketAiQuestion' ,'marketBonusQuestion')
+        $plan = Plan::with(
+                           'Market', 'Team', 'Traction', 'Competition', 'BusinessModel', 'CorporateStructure', 'ExistingFinancial', 'Financial', 'Fund', 
+                           'IntellectualProperty' , 'marketAnswer.question', 'tractionAnswer.question' , 'teamAnswer.question' , 'competitionAnswer.question',
+                           'financialAnswer.question' , 'intellectualAnswer.question' , 'fundAnswer.question' , 'businessAnswer.question' , 'corporateAnswer.question', 'investmentAnswer.question',
+                           'marketAiQuestion' ,'marketBonusQuestion', 'tractionAiQuestion' , 'tractionBonusQuestion','teamAiQuestion' , 'teamBonusQuestion' , 'competitionAiQuestion' , 
+                           'competitionBonusQuestion' , 'financialAiQuestion' , 'financialBonusQuestion','intellectualAiQuestion' , 'intellectualBonusQuestion' , 'businessAiQuestion' ,
+                           'businessBonusQuestion' , 'fundAiQuestion' , 'fundBonusQuestion','corporateAiQuestion' , 'corporateBonusQuestion' , 'investmentAiQuestion' , 'investmentBonusQuestion'
+                           )
                     ->where('id' , $request->planId)
                     ->first();
+        
+                    // dd($plan->roundAnswer);
 
         $marketQuestion = GeneralQuestion::market()->get();
         $tractionQuestion = GeneralQuestion::traction()->get();

@@ -28,4 +28,9 @@ class AiQuestionController extends Controller
     {
         return $this->aiQuestion->addBonusQuestion($request);
     }
+
+    public function clearQuestions(Request $request)
+    {
+        return $this->aiQuestion->clearFormQuestion($request);
+    }
 }

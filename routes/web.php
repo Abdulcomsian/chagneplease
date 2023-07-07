@@ -105,6 +105,8 @@ Route::group(['middleware' => ['auth' ,'auth.investee', 'preventBackHistory']] ,
     Route::post("generate-ai-bonus-question" , [AiQuestionController::class , 'createAiBonusQuestion'])->name('generate.ai.bonus.question');
     //Add bonus ai question
     Route::post('add-ai-bonus-question' , [AiQuestionController::class , 'addAiBonusQuestion'])->name('add.ai.bonus.question');
+    //Clear form
+    Route::post('clear-form' , [AiQuestionController::class , 'clearQuestions'])->name('clear.question');
 });
 
 

@@ -280,8 +280,8 @@
 
               <div class="col-lg-12 colL extra-question-section">
                   <div class="mb-3">
-                    <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}?</span></label>
-                    <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}?">
+                    <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                    <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
                   </div>
               </div>
 
@@ -308,8 +308,8 @@
 
               <div class="col-lg-12 colL extra-question-section">
                   <div class="mb-3">
-                    <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}?</span></label>
-                    <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}?">
+                    <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                    <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
                   </div>
               </div>
 
@@ -319,8 +319,8 @@
 
           </div>
 
-          <div class="form_bottom_links d-flex justify-content-end">
-            {{-- <button type="submit" class="save_link">Save</button> --}}
+          <div class="form_bottom_links d-flex justify-content-between">
+            <button type="button" class="btn btn-danger clear_form">Clear</button>
             <div class="d-flex">
               <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
             </div>
@@ -332,12 +332,31 @@
     </div>
 
     {{-- market code ends here --}}
+
+
+
+
+
+
     {{-- traction code ends here --}}
     <div class="form_box @if(( !isset($plan->Market) || is_null($plan->Market) ) || (isset($plan->Traction) && !is_null($plan->Traction))  ) d-none @endif">
       <h2 class="form_box_title">Traction</h2>
       <form class="form">
         <input type="hidden" class="questionType" name="questionType" value="traction">
         <input type="hidden" class="questionCategory" name="questionCategory" value="2">
+        @if($plan->tractionAnswer->isNotEmpty())
+        
+        @foreach($plan->tractionAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
         @foreach($tractionQuestion as $index => $question)
 
         <div class="col-lg-12 colL question-section">
@@ -348,15 +367,58 @@
         </div>
 
         @endforeach
+      @endif
         <div class="extra-question">
+          @if($plan->tractionAiQuestion)
 
+          <div>
+            <h3>Extra Generated Question</h3>
+          </div>
+            @php
+              $aiQuestions = json_decode($plan->tractionAiQuestion->question);
+              $aiAnswer = json_decode($plan->tractionAiQuestion->answer);
+            @endphp
+
+            @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+            <div class="col-lg-12 colL extra-question-section">
+                <div class="mb-3">
+                  <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                  <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+                </div>
+            </div>
+
+            @endfor
+            
+          @endif
         </div>
 
         <div class="extra-bonus-question">
+          @if($plan->tractionBonusQuestion)
 
+            <div>
+              <h3>Bonus Questions</h3>
+            </div>
+              @php
+                $aiQuestions = json_decode($plan->tractionBonusQuestion->question);
+                $aiAnswer = json_decode($plan->tractionBonusQuestion->answer);
+              @endphp
+
+              @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+              <div class="col-lg-12 colL extra-question-section">
+                  <div class="mb-3">
+                    <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                    <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+                  </div>
+              </div>
+
+              @endfor
+              
+            @endif
         </div>
-        <div class="form_bottom_links d-flex justify-content-end">
-          {{-- <button type="submit" class="save_link">Save</button> --}}
+        <div class="form_bottom_links d-flex justify-content-between">
+          <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
             <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
             <a href="javascript:void(0)" id="tration-step" class="btn btn-blue next-step">Next Step</a>
@@ -373,6 +435,19 @@
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="team">
       <input type="hidden" class="questionCategory" name="questionCategory" value="3">
+      @if($plan->teamAnswer->isNotEmpty())
+        
+        @foreach($plan->teamAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
       @foreach($teamQuestion as $index => $question)
 
       <div class="col-lg-12 colL question-section">
@@ -383,15 +458,60 @@
       </div>
 
       @endforeach
-      <div class="extra-question">
+      @endif
 
+
+      <div class="extra-question">
+        @if($plan->teamAiQuestion)
+
+        <div>
+          <h3>Extra Generated Question</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->teamAiQuestion->question);
+            $aiAnswer = json_decode($plan->teamAiQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
 
       <div class="extra-bonus-question">
+        @if($plan->teamBonusQuestion)
 
+        <div>
+          <h3>Bonus Questions</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->teamBonusQuestion->question);
+            $aiAnswer = json_decode($plan->teamBonusQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
-      <div class="form_bottom_links d-flex justify-content-end">
-        {{-- <button type="submit" class="save_link">Save</button> --}}
+      <div class="form_bottom_links d-flex justify-content-between">
+        <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
           <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
@@ -411,6 +531,19 @@
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="competition">
       <input type="hidden" class="questionCategory" name="questionCategory" value="4">
+      @if($plan->competitionAnswer->isNotEmpty())
+        
+        @foreach($plan->competitionAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
       @foreach($competitionQuestion as $index => $question)
 
       <div class="col-lg-12 colL question-section">
@@ -421,15 +554,58 @@
       </div>
 
       @endforeach
+      @endif
       <div class="extra-question">
+        @if($plan->competitionAiQuestion)
 
+        <div>
+          <h3>Extra Generated Question</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->competitionAiQuestion->question);
+            $aiAnswer = json_decode($plan->competitionAiQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
 
       <div class="extra-bonus-question">
+        @if($plan->competitionBonusQuestion)
 
+        <div>
+          <h3>Bonus Questions</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->competitionBonusQuestion->question);
+            $aiAnswer = json_decode($plan->competitionBonusQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
-      <div class="form_bottom_links d-flex justify-content-end">
-        {{-- <button type="submit" class="save_link">Save</button> --}}
+      <div class="form_bottom_links d-flex justify-content-between">
+        <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
           <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
@@ -447,6 +623,19 @@
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="financial">
       <input type="hidden" class="questionCategory" name="questionCategory" value="5">
+      @if($plan->financialAnswer->isNotEmpty())
+        
+        @foreach($plan->financialAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
       @foreach($financialQuestion as $index => $question)
 
       <div class="col-lg-12 colL question-section">
@@ -457,15 +646,58 @@
       </div>
 
       @endforeach
+      @endif
       <div class="extra-question">
+        @if($plan->financialAiQuestion)
 
+        <div>
+          <h3>Extra Generated Question</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->financialAiQuestion->question);
+            $aiAnswer = json_decode($plan->financialAiQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
 
       <div class="extra-bonus-question">
+        @if($plan->financialBonusQuestion)
 
+        <div>
+          <h3>Bonus Questions</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->financialBonusQuestion->question);
+            $aiAnswer = json_decode($plan->financialBonusQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
-      <div class="form_bottom_links d-flex justify-content-end">
-        {{-- <button type="submit" class="save_link">Save</button> --}}
+      <div class="form_bottom_links d-flex justify-content-between">
+        <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
           <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
@@ -484,6 +716,19 @@
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="intellectual-property">
       <input type="hidden" class="questionCategory" name="questionCategory" value="6">
+      @if($plan->intellectualAnswer->isNotEmpty())
+        
+        @foreach($plan->intellectualAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
       @foreach($intellectualQuestion as $index => $question)
 
       <div class="col-lg-12 colL question-section">
@@ -494,15 +739,58 @@
       </div>
 
       @endforeach
+      @endif
       <div class="extra-question">
+        @if($plan->intellectualAiQuestion)
 
+        <div>
+          <h3>Extra Generated Question</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->intellectualAiQuestion->question);
+            $aiAnswer = json_decode($plan->intellectualAiQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
 
       <div class="extra-bonus-question">
+        @if($plan->intellectualBonusQuestion)
 
+        <div>
+          <h3>Bonus Questions</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->intellectualBonusQuestion->question);
+            $aiAnswer = json_decode($plan->intellectualBonusQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
-      <div class="form_bottom_links d-flex justify-content-end">
-        {{-- <button type="submit" class="save_link">Save</button> --}}
+      <div class="form_bottom_links d-flex justify-content-between">
+        <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
           <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
@@ -520,7 +808,20 @@
      <h2 class="form_box_title">Business Model</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="business-model">
-      <input type="hidden" class="questionCategory" name="questionCategory" value="7">
+      <input type="hidden" class="questionCategory" name="questionCategory" value="8">
+      @if($plan->businessAnswer->isNotEmpty())
+        
+        @foreach($plan->businessAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
       @foreach($businessQuestion as $index => $question)
 
       <div class="col-lg-12 colL question-section">
@@ -531,15 +832,58 @@
       </div>
 
       @endforeach
+      @endif
       <div class="extra-question">
+        @if($plan->businessAiQuestion)
 
+        <div>
+          <h3>Extra Generated Question</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->businessAiQuestion->question);
+            $aiAnswer = json_decode($plan->businessAiQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
 
       <div class="extra-bonus-question">
+        @if($plan->businessBonusQuestion)
 
+        <div>
+          <h3>Bonus Questions</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->businessBonusQuestion->question);
+            $aiAnswer = json_decode($plan->businessBonusQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
-      <div class="form_bottom_links d-flex justify-content-end">
-        {{-- <button type="submit" class="save_link">Save</button> --}}
+      <div class="form_bottom_links d-flex justify-content-between">
+        <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
           <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
@@ -555,7 +899,20 @@
      <h2 class="form_box_title">Use of Funds</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="fund">
-      <input type="hidden" class="questionCategory" name="questionCategory" value="8">
+      <input type="hidden" class="questionCategory" name="questionCategory" value="7">
+      @if($plan->fundAnswer->isNotEmpty())
+        
+        @foreach($plan->fundAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
       @foreach($fundQuestion as $index => $question)
 
       <div class="col-lg-12 colL question-section">
@@ -566,15 +923,58 @@
       </div>
 
       @endforeach
+      @endif
       <div class="extra-question">
+        @if($plan->fundAiQuestion)
 
+        <div>
+          <h3>Extra Generated Question</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->fundAiQuestion->question);
+            $aiAnswer = json_decode($plan->fundAiQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
 
       <div class="extra-bonus-question">
+        @if($plan->fundBonusQuestion)
 
+        <div>
+          <h3>Bonus Questions</h3>
+        </div>
+          @php
+            $aiQuestions = json_decode($plan->fundBonusQuestion->question);
+            $aiAnswer = json_decode($plan->fundBonusQuestion->answer);
+          @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
       </div>
-      <div class="form_bottom_links d-flex justify-content-end">
-        {{-- <button type="submit" class="save_link">Save</button> --}}
+      <div class="form_bottom_links d-flex justify-content-between">
+        <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
           <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
@@ -592,6 +992,19 @@
       <form class="form">
         <input type="hidden" class="questionType" name="questionType" value="corporate-structure">
         <input type="hidden" class="questionCategory" name="questionCategory" value="9">
+        @if($plan->corporateAnswer->isNotEmpty())
+        
+        @foreach($plan->corporateAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
         @foreach($corporateQuestion as $index => $question)
 
         <div class="col-lg-12 colL question-section">
@@ -602,15 +1015,59 @@
         </div>
 
         @endforeach
+      @endif
         <div class="extra-question">
+          @if($plan->corporateAiQuestion)
+
+          <div>
+            <h3>Extra Generated Question</h3>
+          </div>
+            @php
+              $aiQuestions = json_decode($plan->corporateAiQuestion->question);
+              $aiAnswer = json_decode($plan->corporateAiQuestion->answer);
+            @endphp
+
+          @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+          <div class="col-lg-12 colL extra-question-section">
+              <div class="mb-3">
+                <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+              </div>
+          </div>
+
+          @endfor
+          
+        @endif
 
         </div>
 
         <div class="extra-bonus-question">
+          @if($plan->corporateBonusQuestion)
 
+          <div>
+            <h3>Bonus Questions</h3>
+          </div>
+            @php
+              $aiQuestions = json_decode($plan->corporateBonusQuestion->question);
+              $aiAnswer = json_decode($plan->corporateBonusQuestion->answer);
+            @endphp
+
+            @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+            <div class="col-lg-12 colL extra-question-section">
+                <div class="mb-3">
+                  <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                  <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+                </div>
+            </div>
+
+            @endfor
+            
+          @endif
         </div>
-        <div class="form_bottom_links d-flex justify-content-end">
-          {{-- <button type="submit" class="save_link">Save</button> --}}
+        <div class="form_bottom_links d-flex justify-content-between">
+          <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
             <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
             <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
@@ -621,6 +1078,15 @@
     
     {{-- Corporate structure ends here --}}
     
+
+
+
+
+
+
+
+
+
     
     {{-- Existing Financial Round Starts here --}}
 
@@ -629,7 +1095,20 @@
       <form class="form">
         <input type="hidden" class="questionType" name="questionType" value="existing-financial">
         <input type="hidden" class="questionCategory" name="questionCategory" value="10">
-        @foreach($financialQuestion as $index => $question)
+        @if($plan->investmentAnswer->isNotEmpty())
+        
+        @foreach($plan->investmentAnswer as $index => $answer)
+
+        <div class="col-lg-12 colL question-section">
+          <div class="mb-3">
+            <label class="form-label form_box_label market-question">{{($index + 1)}}. <span class="question-list"  data-question-id="{{$answer->question->id}}">{{$answer->question->question}}</span></label>
+            <input type="text" class="form-control form_box_input" disabled value="{{$answer->answer}}">
+          </div>
+        </div>
+
+        @endforeach
+      @else
+        @foreach($investmentQuestion as $index => $question)
 
         <div class="col-lg-12 colL question-section">
           <div class="mb-3">
@@ -639,15 +1118,58 @@
         </div>
 
         @endforeach
+      @endif
         <div class="extra-question">
+          @if($plan->investmentAiQuestion)
 
+          <div>
+            <h3>Extra Generated Question</h3>
+          </div>
+            @php
+              $aiQuestions = json_decode($plan->investmentAiQuestion->question);
+              $aiAnswer = json_decode($plan->investmentAiQuestion->answer);
+            @endphp
+  
+            @for($i=0; $i< sizeof($aiQuestions); $i++)
+  
+            <div class="col-lg-12 colL extra-question-section">
+                <div class="mb-3">
+                  <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                  <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+                </div>
+            </div>
+  
+            @endfor
+            
+          @endif
         </div>
 
         <div class="extra-bonus-question">
+          @if($plan->investmentBonusQuestion)
 
+          <div>
+            <h3>Bonus Questions</h3>
+          </div>
+            @php
+              $aiQuestions = json_decode($plan->investmentBonusQuestion->question);
+              $aiAnswer = json_decode($plan->investmentBonusQuestion->answer);
+            @endphp
+
+            @for($i=0; $i< sizeof($aiQuestions); $i++)
+
+            <div class="col-lg-12 colL extra-question-section">
+                <div class="mb-3">
+                  <label class="form-label form_box_label market-question"><span class="extra-question-list">{{$aiQuestions[$i]}}</span></label>
+                  <input type="text" class="form-control form_box_input" disabled value="{{$aiAnswer[$i]}}">
+                </div>
+            </div>
+
+            @endfor
+            
+          @endif
         </div>
-        <div class="form_bottom_links d-flex justify-content-end">
-          {{-- <button type="submit" class="save_link">Save</button> --}}
+        <div class="form_bottom_links d-flex justify-content-between">
+          <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
             <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
             <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Done</a>
@@ -698,7 +1220,6 @@ window.onload = function(){
       let check = [null , "" , undefined , false];
       let element = e.target;
       let currentForm = element.closest(".form");
-      console.log(currentForm.querySelector(".extra-question").innerHTML)
       if(check.includes(currentForm.querySelector(".extra-question").innerHTML.trim()) || check.includes(currentForm.querySelector(".extra-bonus-question").innerHTML.trim()))
       {
         generateAiQuestion(element , currentForm)
@@ -1138,52 +1659,52 @@ window.onload = function(){
   //   add_market_plan();
   // })
 
-  let tractionSave = document.getElementById("traction-save");
-  tractionSave.addEventListener("click" , function(e){
-    add_traction_plan();
-  })
+  // let tractionSave = document.getElementById("traction-save");
+  // tractionSave.addEventListener("click" , function(e){
+  //   add_traction_plan();
+  // })
 
-  let teamSave = document.getElementById("team-save");
-  teamSave.addEventListener("click" , function(e){
-    add_team_plan();
-  })
+  // let teamSave = document.getElementById("team-save");
+  // teamSave.addEventListener("click" , function(e){
+  //   add_team_plan();
+  // })
 
-  let financialSave = document.getElementById("financial-save");
-  financialSave.addEventListener("click" , function(e){
-    add_financial_plan();
-  })
+  // let financialSave = document.getElementById("financial-save");
+  // financialSave.addEventListener("click" , function(e){
+  //   add_financial_plan();
+  // })
 
-  let intellectualPropertySave = document.getElementById("intellectual-property-save");
-  intellectualPropertySave.addEventListener("click" , function(e){
-    add_intellectual_property_plan();
-  })
+  // let intellectualPropertySave = document.getElementById("intellectual-property-save");
+  // intellectualPropertySave.addEventListener("click" , function(e){
+  //   add_intellectual_property_plan();
+  // })
 
-  let businessModelSave = document.getElementById("business-model-save");
-  businessModelSave.addEventListener("click" , function(e){
-    add_business_model_plan();
-  })
+  // let businessModelSave = document.getElementById("business-model-save");
+  // businessModelSave.addEventListener("click" , function(e){
+  //   add_business_model_plan();
+  // })
 
-  let fundSave = document.getElementById("funds-save");
-  fundSave.addEventListener("click" , function(e){
-    add_funds_plan();
-  })
+  // let fundSave = document.getElementById("funds-save");
+  // fundSave.addEventListener("click" , function(e){
+  //   add_funds_plan();
+  // })
 
 
-  let corportateStructureSave = document.getElementById("corporate-structure-save");
-    corportateStructureSave.addEventListener("click" , function(e){
-      add_corporate_structure_plan();
-  })
+  // let corportateStructureSave = document.getElementById("corporate-structure-save");
+  //   corportateStructureSave.addEventListener("click" , function(e){
+  //     add_corporate_structure_plan();
+  // })
 
-  let existingFinancialSave = document.getElementById("existing-financial-save");
-  existingFinancialSave.addEventListener("click" , function(e){
-    add_existing_financial_plan();
-  })
+  // let existingFinancialSave = document.getElementById("existing-financial-save");
+  // existingFinancialSave.addEventListener("click" , function(e){
+  //   add_existing_financial_plan();
+  // })
 
-  let done = document.querySelector(".done");
-  done.addEventListener("click" , function(e){
-    // window.location.href = "{{route('user.done')}}";
-    window.location.href = "{{url('plan-conclusion',$planId)}}";
-  })
+  // let done = document.querySelector(".done");
+  // done.addEventListener("click" , function(e){
+  //   // window.location.href = "{{route('user.done')}}";
+  //   window.location.href = "{{url('plan-conclusion',$planId)}}";
+  // })
 
   
 
@@ -1377,6 +1898,43 @@ document.querySelectorAll(".close-modal").forEach(close => {
 })
 
 // Question form end here
+
+
+document.querySelectorAll(".clear_form").forEach(btn => {
+  btn.addEventListener("click" , function(e){
+    e.preventDefault();
+    let element = e.target;
+    let form = element.closest(".form");
+    let questionCategory = form.querySelector(".questionCategory").value;
+    let generalQuestion = form.querySelectorAll(".question-section");
+    let planId = document.getElementById("planId").value;
+    $.ajax({
+      url : '{{route("clear.question")}}',
+      type : 'post',
+      data : {
+        _token : '{{csrf_token()}}',
+        questionCategory : questionCategory,
+        planId : planId
+      },
+      success : function(res){
+        if(res.success == true)
+        {
+          toastr.success(res.msg);
+          form.querySelector(".extra-question").innerHTML = "";
+          form.querySelector(".extra-bonus-question").innerHTML = "";
+          
+          generalQuestion.forEach(question =>{
+            question.querySelector(".form_box_input").value = "";
+            question.querySelector(".form_box_input").removeAttribute("disabled");
+          })
+        }else{
+          toastr.error(res.msg);
+        }
+      }
+    })
+
+  })
+})
 
 
 </script>

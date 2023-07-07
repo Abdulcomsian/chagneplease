@@ -2,7 +2,7 @@
 
 namespace App\Http\Repository;
 use OpenAI\Laravel\Facades\OpenAI;
-use App\Models\{ AiQuestion , GeneralAnswer, Plan , AiBonusQuestion  };
+use App\Models\{ AiQuestion , GeneralAnswer, Plan , AiBonusQuestion, GeneralQuestion};
 
 class ArtificialQuestion{
 
@@ -13,7 +13,7 @@ class ArtificialQuestion{
         $planId = $request->planId;
         $questionList = $request->questionList;
         $questionType = $request->questionType;
-
+        
         foreach($questionList as $ql)
         {
             GeneralAnswer::updateOrCreate(
@@ -255,6 +255,27 @@ class ArtificialQuestion{
         return response()->json(["success"=> false , "msg" => "Something Went Wrong" , "error" => $e->getMessage() ]);
     
     }
+
+    }
+
+    public function clearFormQuestion($request)
+    {
+        try{
+            $questionCategory = $request->questionCategory;
+            $planId = $request->planId;
+    
+            $questionArray = GeneralQuestion::where('category_id' , $questionCategory)->get()->pluck('id')->toArray();
+            
+            GeneralAnswer::whereIn('id' , $questionArray)->where('plan_id' , $planId)->delete();
+    
+            AiQuestion::where('plan_id' , $planId)->where('question_category_id' , $questionCategory)->delete();
+    
+            AiBonusQuestion::where('plan_id' , $planId)->where('question_category_id' , $questionCategory)->delete();
+    
+            return response()->json(['success' => true , 'msg' => 'Question Cleared Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['success' => false , 'msg' => $e->getMessage()]);
+        }
 
     }
 
