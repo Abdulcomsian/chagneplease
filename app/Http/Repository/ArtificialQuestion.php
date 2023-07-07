@@ -56,7 +56,7 @@ class ArtificialQuestion{
             $prompt .= "$question ?\n, Answer: $questionAnswer.. \n";
         }
 
-        $prompt .= " Below question are related to $questionType.. \n";
+        $prompt .= " Below question are related to $questionType Research section while applying for raising investment. \n";
 
         foreach($questionList as $qt)
         {
