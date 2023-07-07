@@ -86,22 +86,66 @@
               @enderror
             </div>
           </div>
+
+          @php
+            
+       $languages =  [
+            "English (eng)",
+            "Spanish (spa)",
+            "Chinese (zho)",
+            "Hindi (hin)",
+            "Arabic (ara)",
+            "Bengali (ben)",
+            "Russian (rus)",
+            "Portuguese (por)",
+            "Indonesian (ind)",
+            "French (fra)",
+            "German (deu)",
+            "Japanese (jpn)",
+            "Swahili (swa)",
+            "Tamil (tam)",
+            "Urdu (urd)",
+            "Turkish (tur)",
+            "Korean (kor)",
+            "Italian (ita)",
+            "Thai (tha)",
+            "Polish (pol)",
+            "Dutch (nld)",
+            "Malay (msa)",
+            "Vietnamese (vie)",
+            "Persian (fas)",
+            "Telugu (tel)",
+            "Ukrainian (ukr)",
+            "Romanian (ron)",
+            "Hungarian (hun)",
+            "Swedish (swe)",
+            "Czech (ces)",
+            "Hebrew (heb)",
+            "Greek (ell)",
+            "Danish (dan)",
+            "Norwegian (nor)",
+            "Finnish (fin)",
+            "Icelandic (isl)",
+            "Filipino (fil)",
+            "Catalan (cat)",
+            "Slovak (slk)",
+            "Serbian (srp)",
+            "Croatian (hrv)",
+            "Slovenian (slv)",
+            "Lithuanian (lit)",
+            "Latvian (lav)",
+            "Estonian (est)"
+        ];
+          @endphp
+
           <div class="col-lg-6">
             <div class="mb-3">
-              <label for="category" class="form-label form_box_label">Category</label>
-              <select name="category" class="form-control" id="category">
-                <option value="Energy">Energy</option>
-                <option value="Materials">Materials</option>
-                <option value="Industrials">Industrials</option>
-                <option value="Utilities">Utilities</option>
-                <option value="Healthcare">Healthcare</option>
-                <option value="Saham">Saham</option>
-                <option value="Real Estate">Real Estate</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="Communication Services">Communication Services</option>
-                <option value="Others">Others</option>
+              <label for="category" class="form-label form_box_label">Language</label>
+              <select name="language" class="form-control" id="language">
+                @foreach($languages as $language)
+                  <option value="{{$language}}">{{$language}}</option>
+                @endforeach
               </select>
-              {{-- <input type="text" name="category" class="form-control form_box_input" id="category"> --}}
             </div>
           </div>
           <div class="col-lg-12">

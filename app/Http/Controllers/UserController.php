@@ -24,7 +24,9 @@ class UserController extends Controller
     }
     public function get_investee_question_form(Request $request)
     {
-        $plan = Plan::with('Market', 'Team', 'Traction', 'Competition', 'BusinessModel', 'CorporateStructure', 'ExistingFinancial', 'Financial', 'Fund', 'IntellectualProperty' , 'marketAnswer.question')
+
+        $plan = Plan::with('Market', 'Team', 'Traction', 'Competition', 'BusinessModel', 'CorporateStructure', 'ExistingFinancial', 'Financial', 'Fund', 
+                           'IntellectualProperty' , 'marketAnswer.question', 'marketAiQuestion' ,'marketBonusQuestion')
                     ->where('id' , $request->planId)
                     ->first();
 

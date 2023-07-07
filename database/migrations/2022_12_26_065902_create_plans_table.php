@@ -20,7 +20,7 @@ class CreatePlansTable extends Migration
             $table->string("size");
             $table->string("country");
             $table->string("city");
-            $table->string("category");
+            $table->string("language");
             $table->longText('address')->nullable();
             $table->string('postal_code')->nullable();
             $table->longText('company_logo')->nullable();

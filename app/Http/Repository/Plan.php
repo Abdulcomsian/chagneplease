@@ -38,8 +38,8 @@ class Plan{
                 "city"  => $request->city,
                 "address" => $request->address,
                 "postal_code" => $request->postal_code,
+                "language" => $request->language,
                 "company_logo" => $newName,
-                "category"  => $request->category,
                 "status"    => "pending",
                 "description" => $request->description,
                 "video" => $request->video,
@@ -64,7 +64,8 @@ class Plan{
             $q->where('status' , $status);
         });
 
-        $userPlan = $query->where('user_id' , auth()->user()->id)->orderBy('id' , 'desc')->get();
+        $userPlan = $query->with('screeningAnswer')->where('user_id' , auth()->user()->id)->orderBy('id' , 'desc')->get();
+
        
         return \DataTables::of($userPlan)
                     ->addColumn('company' , function($plan){
@@ -74,7 +75,7 @@ class Plan{
                         return $plan->size;
                     })
                     ->addColumn('category', function($plan){
-                        return $plan->category;
+                        return $plan->screeningAnswer->isEmpty() ? "--" : $plan->screeningAnswer[2]->answer;
                     })
                     ->addColumn('logo', function($plan){
                         return '<img style="width:50px" src="'.asset('uploads').'/'.$plan->company_logo.'" >'; 

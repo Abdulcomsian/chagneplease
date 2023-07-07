@@ -15,53 +15,6 @@ class ScreeningQuestion extends Seeder
     public function run()
     {
 
-       $languages =  [
-            "English (eng)",
-            "Spanish (spa)",
-            "Chinese (zho)",
-            "Hindi (hin)",
-            "Arabic (ara)",
-            "Bengali (ben)",
-            "Russian (rus)",
-            "Portuguese (por)",
-            "Indonesian (ind)",
-            "French (fra)",
-            "German (deu)",
-            "Japanese (jpn)",
-            "Swahili (swa)",
-            "Tamil (tam)",
-            "Urdu (urd)",
-            "Turkish (tur)",
-            "Korean (kor)",
-            "Italian (ita)",
-            "Thai (tha)",
-            "Polish (pol)",
-            "Dutch (nld)",
-            "Malay (msa)",
-            "Vietnamese (vie)",
-            "Persian (fas)",
-            "Telugu (tel)",
-            "Ukrainian (ukr)",
-            "Romanian (ron)",
-            "Hungarian (hun)",
-            "Swedish (swe)",
-            "Czech (ces)",
-            "Hebrew (heb)",
-            "Greek (ell)",
-            "Danish (dan)",
-            "Norwegian (nor)",
-            "Finnish (fin)",
-            "Icelandic (isl)",
-            "Filipino (fil)",
-            "Catalan (cat)",
-            "Slovak (slk)",
-            "Serbian (srp)",
-            "Croatian (hrv)",
-            "Slovenian (slv)",
-            "Lithuanian (lit)",
-            "Latvian (lav)",
-            "Estonian (est)"
-        ];
 
     $screeningQuestions =    [
                                     [
@@ -93,12 +46,6 @@ class ScreeningQuestion extends Seeder
                                         "question" => "Who is your target audience or customer base? Please provide as much detail as possible.",
                                         "options" => null,
                                         "name" => "targeted_audience"
-                                    ],
-                                    [
-                                        "type" => "select",
-                                        "question" => "What languages do you support?",
-                                        "options" => json_encode($languages),
-                                        "name" => "language"
                                     ],
             ];
 
