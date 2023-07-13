@@ -88,7 +88,7 @@
           score: score,
           feedback : feedback,
           planId : planId,
-          questionCategory : 5,
+          questionCategory : 6,
         },
         success : function(res){
           if(res.success == true)

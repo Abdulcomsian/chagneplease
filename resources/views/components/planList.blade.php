@@ -14,7 +14,7 @@
                 </div>
               </div>
               <div class="col-lg-4 d-flex justify-content-end">
-                @php
+                @php 
                   $market  =  $plan->marketAiQuestion ? $plan->marketAiQuestion->analyst_rating ?? 0 : 0;
                   $traction  = $plan->tractionAiQuestion ? $plan->tractionAiQuestion->analyst_rating ?? 0 : 0;
                   $team  = $plan->teamAiQuestion ? $plan->teamAiQuestion->analyst_rating ?? 0 : 0; 

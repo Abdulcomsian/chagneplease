@@ -92,6 +92,7 @@ class UserController extends Controller
     public function get_home()
     {
         $plans = $this->home->get_home_details(0);
+        
         return view('user.home')->with(['plans' => $plans]);
     }
     public function get_filter()
