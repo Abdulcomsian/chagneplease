@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\Funds as FundsPlan;
-use App\Models\Feedback;
+use App\Models\{Feedback , Plan};
 class Funds{
     
     public function add_funds_plan($request)
@@ -34,7 +34,7 @@ class Funds{
     {
         $planId = $request->id;
 
-        $fundsDetail = FundsPlan::where("plan_id" , $planId)->first();
+        $fundsDetail = Plan::with('fundAnswer.question' , 'fundAiQuestion.feedbacks')->where("id" , $planId)->first();
 
         return view('analyst.questions.funds')->with(["planId" => $planId , "fundsDetail" => $fundsDetail]);
     }

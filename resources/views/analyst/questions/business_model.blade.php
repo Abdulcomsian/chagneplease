@@ -1,102 +1,68 @@
 @extends('analyst.main_investee')
 @section('main-content')
+    {{-- <input type="hidden" name="planable" id="planableId" value="{{ $marketDetail ? $marketDetail->id : "" }}" > --}}
     <div class="qs_title d-flex align-items-center">
       <img src="{{asset('img/sl.png')}}" alt="sl">
-      <h2>GOOD LOOP</h2>
+      <div class="d-flex justify-content-between w-100">
+        <h2>GOOD LOOP</h2>
+        @if($businessDetail->businessAiQuestion)
+        <h4 class="mt-2">
+          {{$businessDetail->businessAiQuestion->ai_rating}} / 10
+        </h4>
+        @endif
+      </div>
     </div>
+    @php    
+      $index = 0;
+    @endphp
     <div class="qs_sec">
+      @foreach($businessDetail->businessAnswer as  $answer)
       <div class="qs_box">
         <p>
-          <span>Question 1: </span>Which specific marketing channels are you using?
+          <span>Question {{++$index}}: </span>{{$answer->question->question}}
         </p>
         <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->specific_channels : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 2: </span>Why are you using these marketing channels?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->marketing_channels : "--"}}
+          <span>Answer: </span>{{ $answer->answer ?? "--" }}
         </p>
       </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 3: </span>What is your plan B, if these sales channels are interrupted?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->plan_b : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 4: </span>What profit margins are you operating on?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->profit_margin : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 5: </span>How will scalling impact profit margins?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->scalling_impact : "--"}}
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 6: </span>What pivots have you already made up until now?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->pivots : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 7: </span>Can you tell me a story about how a customer has decided to choose you and their experience with your product?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->customer_story : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 8: </span>Who in the organization is most replaceable?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->replaceable : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 9: </span>What unique features are you working on?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->unique_feature : "--"}}
-        </p>
-      </div>
-    </div>
-    <div class="qs_box">
-        <p>
-          <span>Question 10: </span>What other streams of revenue can be added to this?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($businessModelDetail) ? $businessModelDetail->revenue_stream : "--"}}
-        </p>
-      </div>
-      <!-- btns -->
+
+      @endforeach
+
+      @if($businessDetail->businessAiQuestion)
+        @php
+          $aiQuestion = json_decode($businessDetail->businessAiQuestion->question);
+          $aiAnswer = json_decode($businessDetail->businessAiQuestion->answer);
+        @endphp 
+
+        @for($i =0 ; $i<sizeof($aiQuestion); $i++)
+        <div class="qs_box">
+          <p>
+            <span>Question {{++$index}}: </span>{{$aiQuestion[$i]}}
+          </p>
+          <p>
+            <span>Answer: </span>{{ $aiAnswer[$i] ?? "--" }}
+          </p>
+        </div>
+        @endfor
+
+     @else
+        <div>Ai Question Not Submitted Yet!</div>
+     @endif
+
+
+     @if($businessDetail->businessAiQuestion)
       <div class="qs_btns d-flex justify-content-between align-content-center">
-        {{-- <a href="#" class="link">save</a> --}}
         <div class="btns d-flex">
           <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model1">Rate</a>
-          {{-- <a href="#" class="btn btn_blue">Done</a> --}}
         </div>
       </div>
+      @endif
+
+
     </div>
 
-    
 @endsection
+
 @section('script')
 <script>
   let rateButton = document.getElementById("rate");
@@ -111,18 +77,18 @@
 
     let score = scoreRadio.value;
     let feedback = document.getElementById("comment").value;
-    let planableType = "business-model";
+    let planableType = "market";
     let planId = document.getElementById("planId").value;
 
     $.ajax({
-        url : "{{route('add.business.model.rating')}}",
+        url : "{{route('add.ai.rating')}}",
         type : "post",
         data : {
+          _token : '{{csrf_token()}}',
           score: score,
           feedback : feedback,
-          planableType : planableType,
           planId : planId,
-          _token : '{{csrf_token()}}'
+          questionCategory : 8,
         },
         success : function(res){
           if(res.success == true)

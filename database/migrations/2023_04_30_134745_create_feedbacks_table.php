@@ -15,9 +15,9 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('planable_id');
+            $table->unsignedBigInteger('feedbackable_id');
             $table->unsignedBigInteger('analyst_id');
-            $table->string('planable_type');
+            $table->string('feedbackable_type');
             $table->longText('description');
             $table->foreign('analyst_id')->references('id')->on('analyst');
             $table->timestamps();

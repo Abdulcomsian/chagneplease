@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\Market as MarketPlan;
-use App\Models\Feedback;
+use App\Models\{ Feedback , Plan };
 
 class Market{
     public function add_market_plan($request)
@@ -25,7 +25,7 @@ class Market{
             ]);
             return response()->json(["success" => true , "msg" =>"Market Plan Added Successfully" ]);
         }
-        catch(Exception $e)
+        catch(\Exception $e)
         {
             return response()->json(["success" => false , "msg" =>"Market Plan Added Successfully" ]);
         }
@@ -34,9 +34,9 @@ class Market{
     public function get_market_plan_detail($request)
     {
         $planId = $request->id;
-
-        $marketDetail = MarketPlan::where('plan_id' , $planId)->first();
-
+        // $marketDetail = MarketPlan::where('plan_id' , $planId)->first();
+        $marketDetail = Plan::with('marketAnswer.question' , 'marketAiQuestion.feedbacks')->where('id' , $planId)->first();
+        
         return view('analyst.questions.market')->with(['planId'=>$planId , "marketDetail" => $marketDetail]);
     }
 

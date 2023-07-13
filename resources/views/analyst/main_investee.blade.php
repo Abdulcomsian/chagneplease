@@ -148,70 +148,70 @@
                     href="{{url('analyst/investee/market')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/market/*')) ? 'active' : ''}}"
                     >Market
-                  </a><span style="margin-top: 15px;">{{$plan->Market ? $plan->Market->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->marketAiQuestion ? $plan->marketAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/traction')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/traction/*')) ? 'active' : ''}}"
                     >Traction
-                  </a><span style="margin-top: 15px;">{{$plan->Traction ? $plan->Traction->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->tractionAiQuestion ? $plan->tractionAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/team')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/team/*')) ? 'active' : ''}}"
                     >Team
-                  </a><span style="margin-top: 15px;">{{$plan->Team ? $plan->Team->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->teamAiQuestion ? $plan->teamAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/competition')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/competition/*')) ? 'active' : ''}}"
                     >Competition
-                  </a><span style="margin-top: 15px;">{{$plan->Competition ? $plan->Competition->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->competitionAiQuestion ? $plan->competitionAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/financial')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/financial/*')) ? 'active' : ''}}"
                     >Financials
-                  </a><span style="margin-top: 15px;">{{$plan->Financial ? $plan->Financial->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->financialAiQuestion ? $plan->financialAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/intellectual-property')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/intellectual-property/*')) ? 'active' : ''}}"
                     >Intellectual Property
-                  </a><span style="margin-top: 15px;">{{$plan->IntellectualProperty ? $plan->IntellectualProperty->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->intellectualAiQuestion ? $plan->intellectualAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/funds')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/funds/*')) ? 'active' : ''}}"
                     >Use of Funds
-                  </a><span style="margin-top: 15px;">{{$plan->Fund ? $plan->Fund->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->fundAiQuestion ? $plan->fundAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/business-model')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/business-model/*')) ? 'active' : ''}}"
                     >Business Model
-                  </a><span style="margin-top: 15px;">{{$plan->BusinessModel ? $plan->BusinessModel->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->businessAiQuestion ? $plan->businessAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/corporate-structure')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/corporate-structure/*')) ? 'active' : ''}}"
                     >Corporate Structure
-                  </a><span style="margin-top: 15px;">{{$plan->CorporateStructure ? $plan->CorporateStructure->rating ?? 0 : 0 }}/10</span>
+                  </a><span style="margin-top: 15px;">{{$plan->corporateAiQuestion ? $plan->corporateAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <a
                     href="{{url('analyst/investee/existing-financial-round')}}/{{$planId}}"
                     class="nav_link {{(request()->is('analyst/investee/existing-financial-round/*')) ? 'active' : ''}}"
                     >Existing Financing Round
-                    </a><span style="margin-top: 15px;">{{$plan->ExistingFinancial ? $plan->ExistingFinancial->rating ?? 0 : 0 }}/10</span>
+                    </a><span style="margin-top: 15px;">{{$plan->investmentAiQuestion ? $plan->investmentAiQuestion->analyst_rating ?? 0 : 0 }}/10</span>
                 </div>
 
               </div>

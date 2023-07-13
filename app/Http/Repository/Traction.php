@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\Traction as TractionPlan;
-use App\Models\Feedback;
+use App\Models\{ Feedback , Plan};
 
 class Traction{
     
@@ -37,7 +37,7 @@ class Traction{
     {
         $planId = $request->id;
 
-        $tractionDetail = TractionPlan::where('id' , $planId)->first();
+        $tractionDetail = Plan::with('tractionAnswer.question' , 'tractionAiQuestion.feedbacks')->where('id' , $planId)->first();
 
         return view('analyst.questions.traction')->with(['planId' => $planId , 'tractionDetail' => $tractionDetail]);
     }

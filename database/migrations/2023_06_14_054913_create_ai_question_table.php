@@ -19,6 +19,8 @@ class CreateAiQuestionTable extends Migration
             $table->unsignedBigInteger('question_category_id');
             $table->json("question");
             $table->json("answer");
+            $table->unsignedBigInteger('ai_rating')->nullable();
+            $table->unsignedBigInteger('analyst_rating')->nullable();
             $table->foreign("plan_id")->references("id")->on("plans");
             $table->foreign("question_category_id")->references("id")->on("question_category");
             $table->timestamps();

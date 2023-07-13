@@ -13,5 +13,12 @@ class Feedback extends Model
 
     protected $primaryKey = "id";
 
-    public $fillable = [ 'description' , 'planable_type' , 'analyst_id' , 'planable_id' ];
+    public $fillable = [ 'description' , 'feedbackable_type' , 'analyst_id' , 'feedbackable_id' ];
+
+    public function feedbackable(){
+        
+        return $this->morphTo();
+
+    }
+
 }

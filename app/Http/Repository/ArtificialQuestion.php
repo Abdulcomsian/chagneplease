@@ -2,7 +2,7 @@
 
 namespace App\Http\Repository;
 use OpenAI\Laravel\Facades\OpenAI;
-use App\Models\{ AiQuestion , GeneralAnswer, Plan , AiBonusQuestion, GeneralQuestion};
+use App\Models\{ AiQuestion , GeneralAnswer, Plan , AiBonusQuestion, GeneralQuestion , QuestionCategory , FeedBack};
 
 class ArtificialQuestion{
 
@@ -40,13 +40,6 @@ class ArtificialQuestion{
 
 
 
-
-
-
-
-        // $prompt = "$plan->company_name is a Company, company resides in $plan->city , $plan->country .Company have a plan, company have a size $plan->size , company need an investment of $plan->investment , company raised amount of total $plan->amount ";
-        // $prompt .= ", company give screening answer these are question and their respective answer\n\n";
-
         $prompt .= "company has submitted its screening question:\n";
 
         foreach($plan->screeningAnswer as $answer)
@@ -82,8 +75,8 @@ class ArtificialQuestion{
 
         // $moreQuestions = explode("?" , str_replace("\n" ,"", $result['choices'][0]['text']));
         $moreQuestions = str_replace("\n" ,"", $result['choices'][0]['text']);
-        $moreQuestions = rtrim( ltrim($moreQuestions , "QuestionStartHere") , "QuestionEndsHere");
-        $moreQuestions = rtrim( ltrim($moreQuestions , "questionStartHere") , "questionEndsHere");
+        $moreQuestions = rtrim( ltrim($moreQuestions , "[QuestionStartHere") , "QuestionEndsHere]");
+        $moreQuestions = rtrim( ltrim($moreQuestions , "[questionStartHere") , "questionEndsHere]");
         $moreQuestions = ltrim($moreQuestions , "_StartHere");
         $moreQuestions = rtrim($moreQuestions , "Question Ends");
         $moreQuestions = explode("?" , $moreQuestions);
@@ -198,8 +191,8 @@ class ArtificialQuestion{
         ]);
 
         $moreQuestions = str_replace("\n" ,"", $result['choices'][0]['text']);
-        $moreQuestions = rtrim( ltrim($moreQuestions , "QuestionStartHere") , "QuestionEndsHere");
-        $moreQuestions = rtrim( ltrim($moreQuestions , "questionStartHere") , "questionEndsHere");
+        $moreQuestions = rtrim( ltrim($moreQuestions , "[QuestionStartHere") , "QuestionEndsHere]");
+        $moreQuestions = rtrim( ltrim($moreQuestions , "[questionStartHere") , "questionEndsHere]");
         $moreQuestions = ltrim($moreQuestions , "_StartHere");
         $moreQuestions = rtrim($moreQuestions , "Question Ends");
         $moreQuestions = explode("?" , $moreQuestions);
@@ -224,7 +217,7 @@ class ArtificialQuestion{
           $bonusQuestion  = $request->bonusQuestion;
 
           $question = [];
-          $answer = [];
+          $answers = [];
 
           foreach($bonusQuestion as $question)
           {
@@ -278,5 +271,146 @@ class ArtificialQuestion{
         }
 
     }
+
+    public function saveAiQuestion($request)
+    {
+        try{
+        $planId = $request->planId;
+        $category = $request->category;
+        $questionList = $request->aiQuestion;
+
+        $questions = [];
+        $answers = [];
+
+        foreach($questionList as $question)
+        {
+            $questions[] = $question['question'];
+            $answers[] = $question['answer'];
+        }
+
+        $questions = json_encode($questions);
+        $answers = json_encode($answers);
+
+        //new code starts here
+
+        $generalAnswer  = GeneralAnswer::with('plan.screeningAnswer.screeningQuestion','question')->where('plan_id' , $planId)->first();
+        $categoryTitle = QuestionCategory::where('id' , $category )->first()->title;
+        $plan = $generalAnswer->plan;
+
+        $planCurrentStage = $plan->screeningAnswer[0]->answer;
+        $planCurrentCategory = $plan->screeningAnswer[2]->answer;
+
+        $prompt = "Consider a company at the $planCurrentStage stage, operating in the $planCurrentCategory industry\n
+                    The company is located in $plan->city , $plan->country , and their target audience is\n
+                    The company's mission, as described in their executive summary, is: '$plan->description'\n
+                    Given this information,
+                    please generate six specific questions that could help better understand the company's $plan->category.\n 
+                    These questions should be designed to extract further detail about the company's strategy, competitive positioning,\n 
+                    and plans for growth in the context of their impact goals.\n";
+
+        $prompt .= "company has submitted its screening question:\n";
+
+        foreach($plan->screeningAnswer as $answer)
+        {
+            $question = $answer->screeningQuestion->question;
+            $questionAnswer   = $answer->answer;
+            $prompt .= "$question ?\n, Answer: $questionAnswer.. \n";
+        }
+
+        $prompt .= " Below question are related to $categoryTitle Research section while applying for raising investment. \n";
+
+        foreach($questionList as $qt)
+        {
+            $question = $qt["question"];
+            $answer = $qt["answer"];
+            $prompt .= "$question \n";
+            $prompt .= "Answer: $answer \n";
+        }
+
+        $prompt .= "Consider above question and answer please give me overall rating out of 10, only give me rating number";
+
+
+        $rating = $this->recursiveAi($prompt);
+       
+        //new code ends here
+
+        AiQuestion::updateOrCreate(
+            [
+                'plan_id' => $planId,
+                'question_category_id' => $category,
+            ],
+            [ 
+                'plan_id' => $planId,
+                'question_category_id' => $category,
+                'question' => $questions,
+                'answer' => $answers,
+                'ai_rating' => $rating
+            ]
+        );
+
+            return response()->json(["success" => true , "msg" => "Question Added Successfully"]);
+        
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false , "msg" => $e->getMessage()]);
+        
+        }
+    }
+
+    public function recursiveAi($prompt)
+    {
+        $checkArray = ["" , null];
+
+        $result = OpenAI::completions()->create([
+            'model' => 'text-davinci-003',
+            'prompt' => $prompt,
+            'max_tokens' => 5,
+            'temperature' => 0.2
+        ]);
+
+
+        $rating  = (int)preg_replace("/[^0-9]/", "" , $result['choices'][0]['text']);
+
+        if(in_array( $rating , $checkArray) || gettype($rating) !== "integer" )
+        {
+            $this->recursiveAi($prompt);
+        }
+
+        return $rating;
+
+    }
+
+
+
+    public function saveAiAnalystRating($request)
+    {
+        try{
+            $score = $request->score;
+            $feedback = $request->feedback;
+            $feedbackableType = "App\Models\AiQuestion";
+            $planId = $request->planId;
+            $questionCategory = $request->questionCategory;
+            
+            $aiQuestion = AiQuestion::where('plan_id',$planId)->where('question_category_id' , $questionCategory)->first();
+            $aiQuestion->analyst_rating = $score;
+            $aiQuestion->save();
+
+            $check = [null , ""];
+            if(!in_array( trim($feedback) , $check))
+            {
+                Feedback::create([
+                    "feedbackable_id"  => $aiQuestion->id,
+                    "feedbackable_type" => $feedbackableType,
+                    "description" => $feedback,
+                    "analyst_id"  => auth()->user()->id,
+                ]);
+            }
+
+            return response()->json(['success' => true , 'msg' => 'Analyst Rating Saved Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['success' => false , 'msg' => $e->getMessage()]);
+        }
+    }
+
 
 }

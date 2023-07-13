@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\BusinessModel as BusinessPlan;
-use App\Models\Feedback;
+use App\Models\{Feedback , Plan};
 
 class BusinessModel{
     
@@ -35,9 +35,9 @@ class BusinessModel{
     {
         $planId = $request->id;
 
-        $businessModelDetail = BusinessPlan::where('plan_id' , $planId)->first();
+        $businessModelDetail = Plan::with('businessAnswer.question','businessAiQuestion.feedbacks')->where('id' , $planId)->first();
 
-        return view('analyst.questions.business_model')->with(["planId" => $planId , "businessModelDetail" => $businessModelDetail]);
+        return view('analyst.questions.business_model')->with(["planId" => $planId , "businessDetail" => $businessModelDetail]);
 
     }
 

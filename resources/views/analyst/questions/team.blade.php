@@ -1,99 +1,64 @@
 @extends('analyst.main_investee')
 @section('main-content')
+    {{-- <input type="hidden" name="planable" id="planableId" value="{{ $marketDetail ? $marketDetail->id : "" }}" > --}}
     <div class="qs_title d-flex align-items-center">
       <img src="{{asset('img/sl.png')}}" alt="sl">
-      <h2>GOOD LOOP</h2>
+      <div class="d-flex justify-content-between w-100">
+        <h2>GOOD LOOP</h2>
+        @if($teamDetail->teamAiQuestion)
+        <h4 class="mt-2">
+          {{$teamDetail->teamAiQuestion->ai_rating}} / 10
+        </h4>
+        @endif
+      </div>
     </div>
+    @php    
+      $index = 0;
+    @endphp
     <div class="qs_sec">
+      @foreach($teamDetail->teamAnswer as  $answer)
       <div class="qs_box">
         <p>
-          <span>Question 1: </span>Where are your headquarters?
+          <span>Question {{++$index}}: </span>{{$answer->question->question}}
         </p>
         <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->headquarter : "--" }}
+          <span>Answer: </span>{{ $answer->answer ?? "--" }}
         </p>
       </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 2: </span>Who are the founders?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->founders : "--" }}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 3: </span>Who are key team members?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->team_members : "--" }}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 4: </span>Any existing board members?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->board_members : "--" }}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 5: </span>What key roles may need to be hired for soon?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->roles : "--" }}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 6: </span>What experience do you have in the industry?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->experience : "--" }}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 7: </span>Why are you the right person to bet on to achieve this?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->right_person : "--" }}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 8: </span>What motivates you?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->motivation : "--" }}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 9: </span>Are any of the founder willing to be bought out now?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->founder : "--" }}
-        </p>
-      </div>
-    </div>
-    <div class="qs_box">
-        <p>
-          <span>Question 10: </span>Are there any other people who may claim they are owed or responsible for your ideas?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($teamDetail) ? $teamDetail->responsible_idea : "--" }}
-        </p>
-      </div>
-      <!-- btns -->
+
+      @endforeach
+
+      @if($teamDetail->teamAiQuestion)
+        @php
+          $aiQuestion = json_decode($teamDetail->teamAiQuestion->question);
+          $aiAnswer = json_decode($teamDetail->teamAiQuestion->answer);
+        @endphp 
+
+        @for($i =0 ; $i<sizeof($aiQuestion); $i++)
+        <div class="qs_box">
+          <p>
+            <span>Question {{++$index}}: </span>{{$aiQuestion[$i]}}
+          </p>
+          <p>
+            <span>Answer: </span>{{ $aiAnswer[$i] ?? "--" }}
+          </p>
+        </div>
+        @endfor
+
+     @else
+        <div>Ai Question Not Submitted Yet!</div>
+     @endif
+
+
+     @if($teamDetail->teamAiQuestion)
       <div class="qs_btns d-flex justify-content-between align-content-center">
-        {{-- <a href="#" class="link">save</a> --}}
         <div class="btns d-flex">
           <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model1">Rate</a>
-          {{-- <a href="#" class="btn btn_blue">Done</a> --}}
         </div>
       </div>
+      @endif
+
+
     </div>
 
 @endsection
@@ -112,18 +77,18 @@
 
     let score = scoreRadio.value;
     let feedback = document.getElementById("comment").value;
-    let planableType = "team";
+    let planableType = "market";
     let planId = document.getElementById("planId").value;
 
     $.ajax({
-        url : "{{route('add.team.rating')}}",
+        url : "{{route('add.ai.rating')}}",
         type : "post",
         data : {
+          _token : '{{csrf_token()}}',
           score: score,
           feedback : feedback,
-          planableType : planableType,
           planId : planId,
-          _token : '{{csrf_token()}}'
+          questionCategory : 3,
         },
         success : function(res){
           if(res.success == true)

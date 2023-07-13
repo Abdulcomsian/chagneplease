@@ -11,7 +11,8 @@ use App\Models\{
     BusinessModel,
     Funds,
     CorporateStructure,
-    Feedback
+    Feedback,
+    Plan
 };
 
 class ExistingFinancial{
@@ -67,9 +68,9 @@ class ExistingFinancial{
     {
         $planId = $request->id;
 
-        $existingFinancialDetail = ExistingFinancialPlan::where('plan_id' , $planId)->first();
+        $existingFinancialDetail = Plan::with('investmentAnswer.question','investmentAiQuestion.feedbacks')->where('id' , $planId)->first();
 
-        return view('analyst.questions.existing_financial')->with(['planId' => $planId , 'existingFinancialDetail' => $existingFinancialDetail]);
+        return view('analyst.questions.existing_financial')->with(['planId' => $planId , 'investmentDetail' => $existingFinancialDetail]);
     }
 
     public function existing_financial_rating($request)

@@ -7,7 +7,7 @@ class Helper{
 
     public static function plan($id)
     {
-        $plan = Plan::with('Market', 'Team', 'Traction', 'Competition', 'BusinessModel', 'CorporateStructure', 'ExistingFinancial', 'Financial', 'Fund', 'IntellectualProperty')
+        $plan = Plan::with('marketAiQuestion', 'teamAiQuestion', 'tractionAiQuestion', 'competitionAiQuestion', 'businessAiQuestion', 'corporateAiQuestion', 'financialAiQuestion', 'intellectualAiQuestion', 'fundAiQuestion', 'investmentAiQuestion')
                     ->where('id' , $id)
                     ->first();
         return $plan;

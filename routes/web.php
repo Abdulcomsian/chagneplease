@@ -105,6 +105,8 @@ Route::group(['middleware' => ['auth' ,'auth.investee', 'preventBackHistory']] ,
     Route::post("generate-ai-bonus-question" , [AiQuestionController::class , 'createAiBonusQuestion'])->name('generate.ai.bonus.question');
     //Add bonus ai question
     Route::post('add-ai-bonus-question' , [AiQuestionController::class , 'addAiBonusQuestion'])->name('add.ai.bonus.question');
+    //Store Ai Question
+    Route::post('store-ai-question' , [AiQuestionController::class , 'storeAiQuestion'])->name('store.ai.question');
     //Clear form
     Route::post('clear-form' , [AiQuestionController::class , 'clearQuestions'])->name('clear.question');
 });
@@ -203,6 +205,7 @@ Route::group(["prefix" => "analyst"] , function(){
         Route::get("/get-investee-list" ,[InvesteeController::class , 'get_investee_list'])->name('analyst.investee.list');
         Route::get("/edit-investee-plan/{id}" , [InvesteeController::class ,'get_edit_investee_plan']);
         Route::post("update-analyst-status" , [InvesteeController::class , 'update_investee_plan_status'])->name('update.analyst.status');
+        Route::post("add-ai-rating" , [AiQuestionController::class , 'aiAnalystRating'])->name('add.ai.rating');
         Route::post("add-marketing-rating" , [MarketController::class , 'add_market_rating'])->name("add.market.rating");
         Route::post("add-business-model-rating" , [BusinessModelController::class , 'add_business_model_rating'])->name("add.business.model.rating");
         Route::post("add-competition-rating" , [CompetitionController::class , 'add_competition_rating'])->name("add.competition.rating");

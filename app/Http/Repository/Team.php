@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\Team as TeamPlan;
-use App\Models\Feedback;
+use App\Models\{ Feedback , Plan};
 class Team{
     
     public function add_team_plan($request)
@@ -35,7 +35,7 @@ class Team{
     {   
         $planId = $request->id;
 
-        $teamDetail = TeamPlan::where("plan_id" , $planId)->first();
+        $teamDetail = Plan::with('teamAnswer.question' , 'teamAiQuestion.feedbacks')->where("id" , $planId)->first();
 
         return view('analyst.questions.team')->with(['planId' => $planId , 'teamDetail' => $teamDetail]);
     }

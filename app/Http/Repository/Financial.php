@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\Financial as FinancialPlan;
-use App\Models\Feedback;
+use App\Models\{Feedback , Plan};
 
 class Financial{
     
@@ -35,7 +35,7 @@ class Financial{
     {
         $planId = $request->id;
 
-        $financialDetail = FinancialPlan::where("plan_id" , $planId)->first();
+        $financialDetail = Plan::with('financialAnswer.question' , 'financialAiQuestion.feedbacks')->where("id" , $planId)->first();
 
         return view('analyst.questions.financial')->with(["planId" => $planId , "financialDetail" => $financialDetail]);
     }

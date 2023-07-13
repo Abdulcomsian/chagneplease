@@ -15,16 +15,16 @@
               </div>
               <div class="col-lg-4 d-flex justify-content-end">
                 @php
-                  $market  =  $plan->Market ? $plan->Market->rating ?? 0 : 0;
-                  $traction  = $plan->Traction ? $plan->Traction->rating ?? 0 : 0;
-                  $team  = $plan->Team ? $plan->Team->rating ?? 0 : 0; 
-                  $businessModel  = $plan->BusinessModel ? $plan->BusinessModel->rating ?? 0 : 0;
-                  $competition  = $plan->Competition ? $plan->Competition->rating ?? 0 : 0;
-                  $corporateStructure = $plan->CorporateStructure ? $plan->CorporateStructure->rating ?? 0 : 0;
-                  $existingFinancial  = $plan->ExistingFinancial ? $plan->ExistingFinancial->rating ?? 0 : 0;
-                  $financial = $plan->Financial ? $plan->Financial->rating ?? 0 : 0;
-                  $fund = $plan->Fund ? $plan->Fund->rating ?? 0 : 0;
-                  $intellectualProperty = $plan->IntellectualProperty ? $plan->IntellectualProperty->rating ?? 0 : 0;
+                  $market  =  $plan->marketAiQuestion ? $plan->marketAiQuestion->analyst_rating ?? 0 : 0;
+                  $traction  = $plan->tractionAiQuestion ? $plan->tractionAiQuestion->analyst_rating ?? 0 : 0;
+                  $team  = $plan->teamAiQuestion ? $plan->teamAiQuestion->analyst_rating ?? 0 : 0; 
+                  $businessModel  = $plan->businessAiQuestion ? $plan->businessAiQuestion->analyst_rating ?? 0 : 0;
+                  $competition  = $plan->competitionAiQuestion ? $plan->competitionAiQuestion->raanalyst_ratingting ?? 0 : 0;
+                  $corporateStructure = $plan->corporateAiQuestion ? $plan->corporateAiQuestion->analyst_rating ?? 0 : 0;
+                  $existingFinancial  = $plan->investmentAiQuestion ? $plan->investmentAiQuestion->analyst_rating ?? 0 : 0;
+                  $financial = $plan->financialAiQuestion ? $plan->financialAiQuestion->analyst_rating ?? 0 : 0;
+                  $fund = $plan->fundAiQuestion ? $plan->fundAiQuestion->analyst_rating ?? 0 : 0;
+                  $intellectualProperty = $plan->intellectualAiQuestion ? $plan->intellectualAiQuestion->analyst_rating ?? 0 : 0;
 
                   $totalPercentage = (($market + $traction + $team + $businessModel + $competition + $corporateStructure + $existingFinancial + $financial + $fund + $intellectualProperty) / 100)* 100;
 

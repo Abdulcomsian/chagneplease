@@ -1,99 +1,64 @@
 @extends('analyst.main_investee')
 @section('main-content')
+    {{-- <input type="hidden" name="planable" id="planableId" value="{{ $marketDetail ? $marketDetail->id : "" }}" > --}}
     <div class="qs_title d-flex align-items-center">
       <img src="{{asset('img/sl.png')}}" alt="sl">
-      <h2>GOOD LOOP</h2>
+      <div class="d-flex justify-content-between w-100">
+        <h2>GOOD LOOP</h2>
+        @if($fundsDetail->fundAiQuestion)
+        <h4 class="mt-2">
+          {{$fundsDetail->marketAiQuestion->ai_rating}} / 10
+        </h4>
+        @endif
+      </div>
     </div>
+    @php    
+      $index = 0;
+    @endphp
     <div class="qs_sec">
+      @foreach($fundsDetail->fundAnswer as  $answer)
       <div class="qs_box">
         <p>
-          <span>Question 1: </span>How will these funds be allocated?
+          <span>Question {{++$index}}: </span>{{$answer->question->question}}
         </p>
         <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->funds_allocated : "--"}}
+          <span>Answer: </span>{{ $answer->answer ?? "--" }}
         </p>
       </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 2: </span>How much will be spent on founders salaries?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->spent : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 3: </span>How much will be spent on overhead versus expansion?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->expansion : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 4: </span>What if you don't get all the money you are asking for?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->not_recieved_money : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 5: </span>What assets will be invested in with this capital?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->asset_invested : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 6: </span>What are your milestones?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->milestones : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 7: </span>What are the biggest risks to my investment?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->biggest_risks : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 8: </span>Why are you choosing this method of raising capital?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->raising_capitals : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 9: </span>How much this money will be used for future fundraising efforts?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->fundraising_efforts : "--"}}
-        </p>
-      </div>
-    </div>
-    <div class="qs_box">
-        <p>
-          <span>Question 10: </span>How much are you personal expenses each month?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($fundsDetail) ? $fundsDetail->personal_expenses : "--"}}
-        </p>
-      </div>
-      <!-- btns -->
+
+      @endforeach
+
+      @if($fundsDetail->fundAiQuestion)
+        @php
+          $aiQuestion = json_decode($fundsDetail->fundAiQuestion->question);
+          $aiAnswer = json_decode($fundsDetail->fundAiQuestion->answer);
+        @endphp 
+
+        @for($i =0 ; $i<sizeof($aiQuestion); $i++)
+        <div class="qs_box">
+          <p>
+            <span>Question {{++$index}}: </span>{{$aiQuestion[$i]}}
+          </p>
+          <p>
+            <span>Answer: </span>{{ $aiAnswer[$i] ?? "--" }}
+          </p>
+        </div>
+        @endfor
+
+     @else
+        <div>Ai Question Not Submitted Yet!</div>
+     @endif
+
+
+     @if($fundsDetail->fundAiQuestion)
       <div class="qs_btns d-flex justify-content-between align-content-center">
-        {{-- <a href="#" class="link">save</a> --}}
         <div class="btns d-flex">
           <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model1">Rate</a>
-          {{-- <a href="#" class="btn btn_blue">Done</a> --}}
         </div>
       </div>
+      @endif
+
+
     </div>
 
 @endsection
@@ -112,18 +77,18 @@
 
     let score = scoreRadio.value;
     let feedback = document.getElementById("comment").value;
-    let planableType = "funds";
+    let planableType = "market";
     let planId = document.getElementById("planId").value;
 
     $.ajax({
-        url : "{{route('add.funds.rating')}}",
+        url : "{{route('add.ai.rating')}}",
         type : "post",
         data : {
+          _token : '{{csrf_token()}}',
           score: score,
           feedback : feedback,
-          planableType : planableType,
           planId : planId,
-          _token : '{{csrf_token()}}'
+          questionCategory : 7,
         },
         success : function(res){
           if(res.success == true)

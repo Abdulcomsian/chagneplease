@@ -107,14 +107,15 @@
 
     {{-- steps starts here --}}
     <div class="stepper-wrapper">
-      <div class="stepper-item @if(isset($plan->Market) && !is_null($plan->Market)) completed @endif">
+
+      <div class="stepper-item @if(isset($plan->marketAiQuestion) && !is_null($plan->marketAiQuestion)) completed @endif">
         <div class="step-counter num">1</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
         </div>
-        <div class="step-name">Market</div>
+        <div class="step-name">Market & <br> Impact</div>
       </div>
-      <div class="stepper-item @if(isset($plan->Market) && !is_null($plan->Market) && !isset($plan->Traction) && is_null($plan->Traction)) next @endif @if(isset($plan->Traction) && !is_null($plan->Traction)) completed @endif">
+      <div class="stepper-item @if(isset($plan->marketAiQuestion) && !is_null($plan->marketAiQuestion) && !isset($plan->tractionAiQuestion) && is_null($plan->tractionAiQuestion)) next @endif @if(isset($plan->tractionAiQuestion) && !is_null($plan->tractionAiQuestion)) completed @endif">
         <div class="step-counter num">2</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -122,9 +123,9 @@
         <div class="step-counter bi_check">
           <img src="{{asset('img/bi_check.png')}}" alt="check">
         </div>
-        <div class="step-name">Traction</div>
+        <div class="step-name">Traction <br> Sustainability</div>
       </div>
-      <div class="stepper-item @if(isset($plan->Traction) && !is_null($plan->Traction) && !isset($plan->Team) && is_null($plan->Team)) next @endif @if(isset($plan->Team) && !is_null($plan->Team)) completed @endif">
+      <div class="stepper-item @if(isset($plan->tractionAiQuestion) && !is_null($plan->tractionAiQuestion) && !isset($plan->teamAiQuestion) && is_null($plan->teamAiQuestion)) next @endif @if(isset($plan->teamAiQuestion) && !is_null($plan->teamAiQuestion)) completed @endif">
         <div class="step-counter num">3</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -132,9 +133,9 @@
         <div class="step-counter bi_check">
           <img src="{{asset('img/bi_check.png')}}" alt="check">
         </div>
-        <div class="step-name">Team</div>
+        <div class="step-name">Team <br> Governance</div>
       </div>
-      <div class="stepper-item @if(isset($plan->Team) && !is_null($plan->Team) && !isset($plan->Competition) && is_null($plan->Competition)) next @endif @if(isset($plan->Competition) && !is_null($plan->Competition)) completed @endif">
+      <div class="stepper-item @if(isset($plan->teamAiQuestion) && !is_null($plan->teamAiQuestion) && !isset($plan->competitionAiQuestion) && is_null($plan->competitionAiQuestion)) next @endif @if(isset($plan->competitionAiQuestion) && !is_null($plan->competitionAiQuestion)) completed @endif">
         <div class="step-counter num">4</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -142,9 +143,9 @@
         <div class="step-counter bi_check">
           <img src="{{asset('img/bi_check.png')}}" alt="check">
         </div>
-        <div class="step-name">Competition</div>
+        <div class="step-name">Competition &  <br> Differentiation</div>
       </div>
-      <div class="stepper-item @if(isset($plan->Competition) && !is_null($plan->Competition) && !isset($plan->Financial) && is_null($plan->Financial)) next @endif @if(isset($plan->Financial) && !is_null($plan->Financial)) completed @endif">
+      <div class="stepper-item @if(isset($plan->competitionAiQuestion) && !is_null($plan->competitionAiQuestion) && !isset($plan->financialAiQuestion) && is_null($plan->financialAiQuestion)) next @endif @if(isset($plan->financialAiQuestion) && !is_null($plan->financialAiQuestion)) completed @endif">
         <div class="step-counter num">5</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -152,9 +153,9 @@
         <div class="step-counter bi_check">
           <img src="{{asset('img/bi_check.png')}}" alt="check">
         </div>
-        <div class="step-name">Financials</div>
+        <div class="step-name">Financials &<br> Resilience</div>
       </div>
-      <div class="stepper-item @if(isset($plan->Financial) && !is_null($plan->Financial) && !isset($plan->IntellectualProperty) && is_null($plan->IntellectualProperty)) next @endif @if(isset($plan->IntellectualProperty) && !is_null($plan->IntellectualProperty)) completed @endif">
+      <div class="stepper-item @if(isset($plan->financialAiQuestion) && !is_null($plan->financialAiQuestion) && !isset($plan->intellectualAiQuestion) && is_null($plan->intellectualAiQuestion)) next @endif @if(isset($plan->intellectualAiQuestion) && !is_null($plan->intellectualAiQuestion)) completed @endif">
         <div class="step-counter num">6</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -167,7 +168,7 @@
           Property
         </div>
       </div>
-      <div class="stepper-item @if(isset($plan->IntellecutalProperty) && !is_null($plan->IntellectualProperty) && !isset($plan->BusinessModel) && is_null($plan->BusinessModel)) next @endif @if(isset($plan->BusinessModel) && !is_null($plan->BusinessModel)) completed @endif">
+      <div class="stepper-item @if(isset($plan->intellectualAiQuestion) && !is_null($plan->intellectualAiQuestion) && !isset($plan->businessAiQuestion) && is_null($plan->businessAiQuestion)) next @endif @if(isset($plan->businessAiQuestion) && !is_null($plan->businessAiQuestion)) completed @endif">
         <div class="step-counter num">7</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -180,7 +181,7 @@
           Model
         </div>
       </div>
-      <div class="stepper-item @if(isset($plan->BusinessModel) && !is_null($plan->BusinessModel) && !isset($plan->Fund) && is_null($plan->Fund)) next @endif @if(isset($plan->Fund) && !is_null($plan->Fund)) completed @endif">
+      <div class="stepper-item @if(isset($plan->businessAiQuestion) && !is_null($plan->businessAiQuestion) && !isset($plan->fundAiQuestion) && is_null($plan->fundAiQuestion)) next @endif @if(isset($plan->fundAiQuestion) && !is_null($plan->fundAiQuestion)) completed @endif">
         <div class="step-counter num">8</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -193,7 +194,7 @@
           Funds
         </div>
       </div>
-      <div class="stepper-item @if(isset($plan->Fund) && !is_null($plan->Fund) && !isset($plan->CorporateStructure) && is_null($plan->CorporateStructure)) next @endif @if(isset($plan->CorporateStructure) && !is_null($plan->CorporateStructure)) completed @endif">
+      <div class="stepper-item @if(isset($plan->fundAiQuestion) && !is_null($plan->fundAiQuestion) && !isset($plan->corporateAiQuestion) && is_null($plan->corporateAiQuestion)) next @endif @if(isset($plan->corporateAiQuestion) && !is_null($plan->corporateAiQuestion)) completed @endif">
         <div class="step-counter num">9</div>
         <div class="step-counter check">
           <img src="{{asset('img/check.png')}}" alt="check">
@@ -234,7 +235,7 @@
     </div>
    
       <!-- progress steps start -->
-    <div class="form_box @if(isset($plan->Market) && !is_null($plan->Market)) d-none @endif">
+    <div class="form_box @if(isset($plan->marketAiQuestion) && !is_null($plan->marketAiQuestion)) d-none @endif">
       <h2 class="form_box_title">Market</h2>
         <form class="form">
           <input type="hidden" class="questionType" name="questionType" value="market">
@@ -292,7 +293,7 @@
 
           </div>
 
-          <div class="extra-bonus-question">
+          {{-- <div class="extra-bonus-question">
             
             @if($plan->marketBonusQuestion)
 
@@ -317,7 +318,7 @@
               
             @endif
 
-          </div>
+          </div> --}}
 
           <div class="form_bottom_links d-flex justify-content-between">
             <button type="button" class="btn btn-danger clear_form">Clear</button>
@@ -339,7 +340,7 @@
 
 
     {{-- traction code ends here --}}
-    <div class="form_box @if(( !isset($plan->Market) || is_null($plan->Market) ) || (isset($plan->Traction) && !is_null($plan->Traction))  ) d-none @endif">
+    <div class="form_box @if(( !isset($plan->marketAiQuestion) || is_null($plan->marketAiQuestion) ) || (isset($plan->tractionAiQuestion) && !is_null($plan->tractionAiQuestion))  ) d-none @endif">
       <h2 class="form_box_title">Traction</h2>
       <form class="form">
         <input type="hidden" class="questionType" name="questionType" value="traction">
@@ -393,7 +394,7 @@
           @endif
         </div>
 
-        <div class="extra-bonus-question">
+        {{-- <div class="extra-bonus-question">
           @if($plan->tractionBonusQuestion)
 
             <div>
@@ -416,7 +417,7 @@
               @endfor
               
             @endif
-        </div>
+        </div> --}}
         <div class="form_bottom_links d-flex justify-content-between">
           <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
@@ -430,7 +431,7 @@
     {{-- traction code ends here --}}
 
     {{-- Team code starts here --}}
-    <div class="form_box @if(!isset($plan->Traction) || is_null($plan->Traction) || (isset($plan->Team) && !is_null($plan->Team))) d-none @endif">
+    <div class="form_box @if(!isset($plan->tractionAiQuestion) || is_null($plan->tractionAiQuestion) || (isset($plan->teamAiQuestion) && !is_null($plan->teamAiQuestion))) d-none @endif">
      <h2 class="form_box_title">Team</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="team">
@@ -486,7 +487,7 @@
         @endif
       </div>
 
-      <div class="extra-bonus-question">
+      {{-- <div class="extra-bonus-question">
         @if($plan->teamBonusQuestion)
 
         <div>
@@ -509,7 +510,7 @@
           @endfor
           
         @endif
-      </div>
+      </div> --}}
       <div class="form_bottom_links d-flex justify-content-between">
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
@@ -526,7 +527,7 @@
     
     {{-- Competition code starts here --}}
 
-    <div class="form_box @if( (!isset($plan->Team) || is_null($plan->Team)) || (isset($plan->Competition) && !is_null($plan->Competition))) d-none @endif">
+    <div class="form_box @if( (!isset($plan->teamAiQuestion) || is_null($plan->teamAiQuestion)) || (isset($plan->competitionAiQuestion) && !is_null($plan->competitionAiQuestion))) d-none @endif">
      <h2 class="form_box_title">Competition</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="competition">
@@ -580,7 +581,7 @@
         @endif
       </div>
 
-      <div class="extra-bonus-question">
+      {{-- <div class="extra-bonus-question">
         @if($plan->competitionBonusQuestion)
 
         <div>
@@ -603,7 +604,7 @@
           @endfor
           
         @endif
-      </div>
+      </div> --}}
       <div class="form_bottom_links d-flex justify-content-between">
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
@@ -618,7 +619,7 @@
 
 
     {{-- Financial code starts here --}}
-    <div class="form_box @if(!isset($plan->Competition) || is_null($plan->Competition) || (isset($plan->Financial) && !is_null($plan->Financial)) ) d-none @endif">
+    <div class="form_box @if(!isset($plan->competitionAiQuestion) || is_null($plan->competitionAiQuestion) || (isset($plan->financialAiQuestion) && !is_null($plan->financialAiQuestion)) ) d-none @endif">
      <h2 class="form_box_title">Financials</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="financial">
@@ -672,7 +673,7 @@
         @endif
       </div>
 
-      <div class="extra-bonus-question">
+      {{-- <div class="extra-bonus-question">
         @if($plan->financialBonusQuestion)
 
         <div>
@@ -695,7 +696,7 @@
           @endfor
           
         @endif
-      </div>
+      </div> --}}
       <div class="form_bottom_links d-flex justify-content-between">
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
@@ -711,7 +712,7 @@
 
     {{-- Intellectual Property code starts here --}}
 
-    <div class="form_box @if((!isset($plan->Financial) || is_null($plan->Financial)) || (isset($plan->IntellectualProperty) && !is_null($plan->IntellectualProperty))) d-none @endif">
+    <div class="form_box @if((!isset($plan->financialAiQuestion) || is_null($plan->financialAiQuestion)) || (isset($plan->intellectualAiQuestion) && !is_null($plan->intellectualAiQuestion))) d-none @endif">
      <h2 class="form_box_title">Intellectual Property</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="intellectual-property">
@@ -765,7 +766,7 @@
         @endif
       </div>
 
-      <div class="extra-bonus-question">
+      {{-- <div class="extra-bonus-question">
         @if($plan->intellectualBonusQuestion)
 
         <div>
@@ -788,7 +789,7 @@
           @endfor
           
         @endif
-      </div>
+      </div> --}}
       <div class="form_bottom_links d-flex justify-content-between">
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
@@ -804,7 +805,7 @@
 
     
 {{-- Business Model code starts here --}}
-    <div class="form_box d-none">
+<div class="form_box @if((!isset($plan->intellectualAiQuestion) || is_null($plan->intellectualAiQuestion)) || (isset($plan->businessAiQuestion) && !is_null($plan->businessAiQuestion))) d-none @endif">
      <h2 class="form_box_title">Business Model</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="business-model">
@@ -858,7 +859,7 @@
         @endif
       </div>
 
-      <div class="extra-bonus-question">
+      {{-- <div class="extra-bonus-question">
         @if($plan->businessBonusQuestion)
 
         <div>
@@ -881,7 +882,7 @@
           @endfor
           
         @endif
-      </div>
+      </div> --}}
       <div class="form_bottom_links d-flex justify-content-between">
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
@@ -895,7 +896,7 @@
     
 
     {{-- Use of funds code starts here --}}
-    <div class="form_box @if((!isset($plan->IntellectualProperty) || is_null($plan->IntellectualProperty)) || (isset($plan->Fund) && !is_null($plan->Fund)) ) d-none @endif">
+    <div class="form_box @if((!isset($plan->businessAiQuestion) || is_null($plan->businessAiQuestion)) || (isset($plan->fundAiQuestion) && !is_null($plan->fundAiQuestion)) ) d-none @endif">
      <h2 class="form_box_title">Use of Funds</h2>
      <form class="form">
       <input type="hidden" class="questionType" name="questionType" value="fund">
@@ -949,7 +950,7 @@
         @endif
       </div>
 
-      <div class="extra-bonus-question">
+      {{-- <div class="extra-bonus-question">
         @if($plan->fundBonusQuestion)
 
         <div>
@@ -972,7 +973,7 @@
           @endfor
           
         @endif
-      </div>
+      </div> --}}
       <div class="form_bottom_links d-flex justify-content-between">
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
@@ -987,7 +988,7 @@
 
     
     {{-- Corporate structure starts here --}}
-    <div class="form_box @if((!isset($plan->Fund) || is_null($plan->Fund)) || (isset($plan->CorporateStructure) && !is_null($plan->CorporateStructure)) ) d-none @endif">
+    <div class="form_box @if((!isset($plan->fundAiQuestion) || is_null($plan->fundAiQuestion)) || (isset($plan->corporateAiQuestion) && !is_null($plan->corporateAiQuestion)) ) d-none @endif">
       <h2 class="form_box_title">Corporate Structure</h2>
       <form class="form">
         <input type="hidden" class="questionType" name="questionType" value="corporate-structure">
@@ -1042,7 +1043,7 @@
 
         </div>
 
-        <div class="extra-bonus-question">
+        {{-- <div class="extra-bonus-question">
           @if($plan->corporateBonusQuestion)
 
           <div>
@@ -1065,7 +1066,7 @@
             @endfor
             
           @endif
-        </div>
+        </div> --}}
         <div class="form_bottom_links d-flex justify-content-between">
           <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
@@ -1090,7 +1091,7 @@
     
     {{-- Existing Financial Round Starts here --}}
 
-    <div class="form_box @if(!isset($plan->CorporateStructure) || is_null($plan->CorporateStructure)) d-none @endif">
+    <div class="form_box @if(!isset($plan->corporateAiQuestion) || is_null($plan->corporateAiQuestion)) d-none @endif">
       <h2 class="form_box_title">Existing Financial Round</h2>
       <form class="form">
         <input type="hidden" class="questionType" name="questionType" value="existing-financial">
@@ -1144,7 +1145,7 @@
           @endif
         </div>
 
-        <div class="extra-bonus-question">
+        {{-- <div class="extra-bonus-question">
           @if($plan->investmentBonusQuestion)
 
           <div>
@@ -1167,7 +1168,7 @@
             @endfor
             
           @endif
-        </div>
+        </div> --}}
         <div class="form_bottom_links d-flex justify-content-between">
           <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
@@ -1200,6 +1201,8 @@ window.onload = function(){
   let nextBtn = document.querySelectorAll(".next-step");
   let form    = document.querySelectorAll(".form_box");
   let stepper = document.querySelectorAll(".stepper-item");
+  let stepperCount = document.querySelectorAll(".step-counter");
+
   for(let i=0; i<previousBtn.length; i++)
   {
     previousBtn[i].addEventListener('click' , function(e){
@@ -1220,64 +1223,109 @@ window.onload = function(){
       let check = [null , "" , undefined , false];
       let element = e.target;
       let currentForm = element.closest(".form");
-      if(check.includes(currentForm.querySelector(".extra-question").innerHTML.trim()) || check.includes(currentForm.querySelector(".extra-bonus-question").innerHTML.trim()))
+      if(check.includes(currentForm.querySelector(".extra-question").innerHTML.trim()))
       {
         generateAiQuestion(element , currentForm)
       }else{
-        setNextStep(i);
-        form[i].classList.add("d-none");
-        form[i+1].classList.remove("d-none");
-        window.scroll(0,0);
-        $(form[i+1]).fadeOut();
-        $(form[i+1]).fadeIn();
+        let check = [undefined , false , null , ""];
+        let extraQuestion = currentForm.querySelectorAll(".extra-question-section");
+        let aiQuestion = [];
+        let checkAnswer = false;
+        extraQuestion.forEach(section => {
+        let question = section.querySelector(".extra-question-list").innerText;
+        let answer = section.querySelector("input").value;
+        if(check.includes(answer.trim()))
+        {
+          checkAnswer = true;
+        }else{
+          let currentQuestion = {
+            question: question,
+            answer: answer
+          };
+          aiQuestion.push(currentQuestion);
+        }
+
+      });
+
+
+      if(checkAnswer) { 
+        toastr.error("Please Add All Answer");
+        return;
+      }
+
+        saveAiQuestion(element, currentForm , aiQuestion)
+                    .then(response => {
+                      if (response) {
+                        
+                        if(i < (form.length-1))
+                        {
+                          setNextStep(i);
+                          form[i].classList.add("d-none");
+                          form[i + 1].classList.remove("d-none");
+                          window.scroll(0, 0);
+                          $(form[i + 1]).fadeOut();
+                          $(form[i + 1]).fadeIn();
+
+                        }else {
+                          window.location.href = "{{url('plan-conclusion',$planId)}}";
+                        }
+
+                      } else {
+                        toastr.error(response);
+                      }
+                    })
+                    .catch(error => {
+                      toastr.error(error);
+                    });
       }
 
     });
   }
 
+
+  function saveAiQuestion(element, currentForm , aiQuestion) {
+  return new Promise((resolve, reject) => {
+    
+    let currentCategory = currentForm.querySelector(".questionCategory").value;
+    let planId = document.getElementById("planId").value;
+
+    $.ajax({
+      url: "{{route('store.ai.question')}}",
+      async: false,
+      type: "POST",
+      data: {
+        _token: "{{csrf_token()}}",
+        aiQuestion: aiQuestion,
+        planId: planId,
+        category: currentCategory
+      },
+      success: function (res) {
+        if (res.success == true) {
+          resolve(true);
+        } else {
+          reject(res.msg);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        reject(errorThrown);
+      }
+    });
+  });
+}
+
+
+
   function setPreviousStep(i)
   {
      stepper[i].classList.remove("completed");
-     stepper[i].classList.add("next");
      stepper[i+1].classList.remove("next");
+     if( i != 0) stepper[i].classList.add("next");
   }
 
 
 
   function setNextStep(i)
   {
-
-    // switch(itemId){
-    // case "market-step":
-    //   add_market_plan();
-    // break;
-    // case "traction":
-    //   add_traction_plan();
-    // break;
-    // case "team":
-    //   add_team_plan();
-    // break;
-    // case "competition":
-    //   add_competition_plan();
-    // break;
-    // case "financial":
-    //   add_financial_plan();
-    // break;
-    // case "intellectual-property":
-    //   add_intellectual_property_plan();
-    // break;
-    // case "business-model":
-    //   add_business_model_plan();
-    // break;
-    // case "funds":
-    //   add_funds_plan();
-    // break;
-    // case "corporate-structure":
-    //   add_corporate_structure_plan();
-    // break;
-
-    // }
-
      stepper[i].classList.add("completed");
      stepper[i].classList.remove("next");
      stepper[i+1].classList.add("next");
@@ -1727,6 +1775,7 @@ function generateAiQuestion(element , form){
   let questionCategory = form.querySelector(".questionCategory").value;
   let planId = document.getElementById("planId").value;
   let questionList = [];
+
   questionSection.forEach(section => {
     let question = section.querySelector(".question-list").innerText;
     let questionId = section.querySelector(".question-list").dataset.questionId;
@@ -1745,27 +1794,34 @@ function generateAiQuestion(element , form){
   });
 
 
- if(extraQuestion.length == 0)
-{ 
-  url = "{{route('generate.ai.question')}}";
-  data = {
-    planId : planId,
-    questionList : questionList,
-    questionType : questionType,
-    questionCategory : questionCategory,
-  };
-}else {
-  url = "{{route('generate.ai.bonus.question')}}";
-  data = {
-    planId : planId,
-    questionList : questionList,
-    aiQuestion : aiQuestion,
-    questionType : questionType,
-    questionCategory : questionCategory,
-  };
-}
+//  if(extraQuestion.length == 0)
+// { 
+//   url = "{{route('generate.ai.question')}}";
+//   data = {
+//     planId : planId,
+//     questionList : questionList,
+//     questionType : questionType,
+//     questionCategory : questionCategory,
+//   };
+// }else {
+//   url = "{{route('generate.ai.bonus.question')}}";
+//   data = {
+//     planId : planId,
+//     questionList : questionList,
+//     aiQuestion : aiQuestion,
+//     questionType : questionType,
+//     questionCategory : questionCategory,
+//   };
+// }
 
   
+url = "{{route('generate.ai.question')}}";
+  data = {
+    planId : planId,
+    questionList : questionList,
+    questionType : questionType,
+    questionCategory : questionCategory,
+  };
 
   
 
@@ -1921,7 +1977,7 @@ document.querySelectorAll(".clear_form").forEach(btn => {
         {
           toastr.success(res.msg);
           form.querySelector(".extra-question").innerHTML = "";
-          form.querySelector(".extra-bonus-question").innerHTML = "";
+          // form.querySelector(".extra-bonus-question").innerHTML = "";
           
           generalQuestion.forEach(question =>{
             question.querySelector(".form_box_input").value = "";

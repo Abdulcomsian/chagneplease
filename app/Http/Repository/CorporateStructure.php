@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\CorporateStructure as CorporateStructurePlan;
-use App\Models\Feedback;
+use App\Models\{Feedback , Plan};
 
 class CorporateStructure{
     
@@ -35,9 +35,9 @@ class CorporateStructure{
     {
         $planId = $request->id;
 
-        $corporateStructureDetail = CorporateStructurePlan::where("plan_id" , $planId)->first();
+        $corporateStructureDetail = Plan::with('corporateAnswer.question' , 'corporateAiQuestion')->where("id" , $planId)->first();
 
-        return view('analyst.questions.corporate_structure')->with(["planId" => $planId, "corporateStructureDetail" => $corporateStructureDetail]);
+        return view('analyst.questions.corporate_structure')->with(["planId" => $planId, "corporateDetail" => $corporateStructureDetail]);
     }
 
     public function corporate_structure_rating($request)

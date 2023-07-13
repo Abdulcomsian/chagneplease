@@ -33,4 +33,15 @@ class AiQuestionController extends Controller
     {
         return $this->aiQuestion->clearFormQuestion($request);
     }
+
+    public function storeAiQuestion(Request $request)
+    {
+        return $this->aiQuestion->saveAiQuestion($request);
+    }
+
+    public function aiAnalystRating(Request $request)
+    {
+        return $this->aiQuestion->saveAiAnalystRating($request);
+    }
+
 }

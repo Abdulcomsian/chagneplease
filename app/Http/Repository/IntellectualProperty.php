@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\IntellectualProperty as IntellectualPropertyPlan;
-use App\Models\Feedback;
+use App\Models\{Feedback , Plan};
 
 class IntellectualProperty{
     
@@ -35,9 +35,9 @@ class IntellectualProperty{
     {
         $planId = $request->id;
 
-        $intellectualPropertyDetail = IntellectualPropertyPlan::where("plan_id" , $planId)->first();
+        $intellectualPropertyDetail = Plan::with('intellectualAnswer.question','intellectualAiQuestion.feedbacks')->where("id" , $planId)->first();
 
-        return view('analyst.questions.intellectual_property')->with(["planId" => $planId , "intellectualPropertyDetail" => $intellectualPropertyDetail]);
+        return view('analyst.questions.intellectual_property')->with(["planId" => $planId , "intellectualDetail" => $intellectualPropertyDetail]);
 
     }
 

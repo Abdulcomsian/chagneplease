@@ -1,99 +1,64 @@
 @extends('analyst.main_investee')
 @section('main-content')
+    {{-- <input type="hidden" name="planable" id="planableId" value="{{ $marketDetail ? $marketDetail->id : "" }}" > --}}
     <div class="qs_title d-flex align-items-center">
       <img src="{{asset('img/sl.png')}}" alt="sl">
-      <h2>GOOD LOOP</h2>
+      <div class="d-flex justify-content-between w-100">
+        <h2>GOOD LOOP</h2>
+        @if($corporateDetail->corporateAiQuestion)
+        <h4 class="mt-2">
+          {{$corporateDetail->corporateAiQuestion->ai_rating}} / 10
+        </h4>
+        @endif
+      </div>
     </div>
+    @php    
+      $index = 0;
+    @endphp
     <div class="qs_sec">
+      @foreach($corporateDetail->corporateAnswer as  $answer)
       <div class="qs_box">
         <p>
-          <span>Question 1: </span>How is the company organized?
+          <span>Question {{++$index}}: </span>{{$answer->question->question}}
         </p>
         <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->organized_company : "--"}}
+          <span>Answer: </span>{{ $answer->answer ?? "--" }}
         </p>
       </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 2: </span>Who hold which titles?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->hold_titles : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 3: </span>How are shares split?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->split_shares : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 4: </span>Is there any existing board or advisors?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->existing_board : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 5: </span>Where is the company registered?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->registered_company : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 6: </span>Who handles accounting?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->account_handling : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 7: </span>What unique skills and talents does each owner contribute?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->talent_skills : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 8: </span>Name someone you chose not to include as a founder and why?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->selected_founder : "--"}}
-        </p>
-      </div>
-      <div class="qs_box">
-        <p>
-          <span>Question 9: </span>Who filed the company?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->employee_selector : "--"}}
-        </p>
-      </div>
-    </div>
-    <div class="qs_box">
-        <p>
-          <span>Question 10: </span>Who is the registered agent on record?
-        </p>
-        <p>
-          <span>Answer: </span>{{isset($corporateStructureDetail) ? $corporateStructureDetail->registered_agent : "--"}}
-        </p>
-      </div>
-      <!-- btns -->
+
+      @endforeach
+
+      @if($corporateDetail->corporateAiQuestion)
+        @php
+          $aiQuestion = json_decode($corporateDetail->corporateAiQuestion->question);
+          $aiAnswer = json_decode($corporateDetail->corporateAiQuestion->answer);
+        @endphp 
+
+        @for($i =0 ; $i<sizeof($aiQuestion); $i++)
+        <div class="qs_box">
+          <p>
+            <span>Question {{++$index}}: </span>{{$aiQuestion[$i]}}
+          </p>
+          <p>
+            <span>Answer: </span>{{ $aiAnswer[$i] ?? "--" }}
+          </p>
+        </div>
+        @endfor
+
+     @else
+        <div>Ai Question Not Submitted Yet!</div>
+     @endif
+
+
+     @if($corporateDetail->corporateAiQuestion)
       <div class="qs_btns d-flex justify-content-between align-content-center">
-        {{-- <a href="#" class="link">save</a> --}}
         <div class="btns d-flex">
           <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model1">Rate</a>
-          {{-- <a href="#" class="btn btn_blue">Done</a> --}}
         </div>
       </div>
+      @endif
+
+
     </div>
 
 @endsection
@@ -112,18 +77,18 @@
 
     let score = scoreRadio.value;
     let feedback = document.getElementById("comment").value;
-    let planableType = "corporate-structure";
+    let planableType = "market";
     let planId = document.getElementById("planId").value;
 
     $.ajax({
-        url : "{{route('add.corporate.structure.rating')}}",
+        url : "{{route('add.ai.rating')}}",
         type : "post",
         data : {
+          _token : '{{csrf_token()}}',
           score: score,
           feedback : feedback,
-          planableType : planableType,
           planId : planId,
-          _token : '{{csrf_token()}}'
+          questionCategory : 9,
         },
         success : function(res){
           if(res.success == true)

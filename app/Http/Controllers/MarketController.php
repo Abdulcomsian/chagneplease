@@ -19,9 +19,7 @@ class MarketController extends Controller
 
     public function get_market(Request $request)
     {
-
       return  $this->market->get_market_plan_detail($request);
-
     }
     
     public function add_market(Request $request)

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Repository;
 use App\Models\Competitions as CompetitionPlan;
-use App\Models\Feedback;
+use App\Models\{ Feedback , Plan};
 
 class Competition{
     
@@ -35,7 +35,7 @@ class Competition{
     {
         $planId = $request->id;
         
-        $competitionDetail = CompetitionPlan::where('plan_id' , $planId)->first();
+        $competitionDetail = Plan::with('competitionAnswer.question' , 'competitionAiQuestion.feedbacks')->where('id' , $planId)->first();
 
         return view('analyst.questions.competition')->with(["planId" => $planId , "competitionDetail" => $competitionDetail]);
     }
