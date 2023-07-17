@@ -371,7 +371,7 @@ class ArtificialQuestion{
 
         $rating  = (int)preg_replace("/[^0-9]/", "" , $result['choices'][0]['text']);
 
-        if(in_array( $rating , $checkArray) || gettype($rating) !== "integer" )
+        if(in_array( $rating , $checkArray) || gettype($rating) !== "integer" || $rating > 10)
         {
             $this->recursiveAi($prompt);
         }
