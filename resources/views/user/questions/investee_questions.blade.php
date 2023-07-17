@@ -323,7 +323,7 @@
           <div class="form_bottom_links d-flex justify-content-between">
             <button type="button" class="btn btn-danger clear_form">Clear</button>
             <div class="d-flex">
-              <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+              <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
             </div>
           </div>
       </form>
@@ -422,7 +422,7 @@
           <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
             <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-            <a href="javascript:void(0)" id="tration-step" class="btn btn-blue next-step">Next Step</a>
+            <a href="javascript:void(0)" id="tration-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
           </div>
         </div>
     </form>
@@ -515,7 +515,7 @@
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
         </div>
       </div>
   </form>
@@ -609,7 +609,7 @@
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
         </div>
       </div>
   </form>
@@ -701,7 +701,7 @@
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
         </div>
       </div>
   </form>
@@ -794,7 +794,7 @@
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
         </div>
       </div>
   </form>
@@ -887,7 +887,7 @@
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
         </div>
       </div>
   </form>
@@ -978,7 +978,7 @@
         <button type="button" class="btn btn-danger clear_form">Clear</button>
         <div class="d-flex">
           <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+          <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
         </div>
       </div>
   </form>
@@ -1071,7 +1071,7 @@
           <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
             <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-            <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step</a>
+            <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
           </div>
         </div>
     </form>
@@ -1173,7 +1173,7 @@
           <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
             <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-            <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Done</a>
+            <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Done <i class="fas fa-spinner fa-spin d-none"></i></a>
           </div>
         </div>
     </form>
@@ -1223,10 +1223,12 @@ window.onload = function(){
       let check = [null , "" , undefined , false];
       let element = e.target;
       let currentForm = element.closest(".form");
+      currentForm.querySelector(".fa-spinner").classList.remove("d-none");
       if(check.includes(currentForm.querySelector(".extra-question").innerHTML.trim()))
       {
         generateAiQuestion(element , currentForm)
       }else{
+      
         let check = [undefined , false , null , ""];
         let extraQuestion = currentForm.querySelectorAll(".extra-question-section");
         let aiQuestion = [];
@@ -1253,30 +1255,69 @@ window.onload = function(){
         return;
       }
 
-        saveAiQuestion(element, currentForm , aiQuestion)
-                    .then(response => {
-                      if (response) {
-                        
-                        if(i < (form.length-1))
-                        {
-                          setNextStep(i);
-                          form[i].classList.add("d-none");
-                          form[i + 1].classList.remove("d-none");
-                          window.scroll(0, 0);
-                          $(form[i + 1]).fadeOut();
-                          $(form[i + 1]).fadeIn();
+      let currentCategory = currentForm.querySelector(".questionCategory").value;
+      let planId = document.getElementById("planId").value;
 
-                        }else {
-                          window.location.href = "{{url('plan-conclusion',$planId)}}";
-                        }
-
-                      } else {
+      $.ajax({
+      url: "{{route('store.ai.question')}}",
+      async: false,
+      type: "POST",
+      data: {
+        _token: "{{csrf_token()}}",
+        aiQuestion: aiQuestion,
+        planId: planId,
+        category: currentCategory
+      },
+      success: function (res) {
+        if (res.success == true) {
+          element.querySelector(".fa-spinner").classList.add("d-none");
+            if(i < (form.length-1))
+            {
+              setNextStep(i);
+              form[i].classList.add("d-none");
+              form[i + 1].classList.remove("d-none");
+              window.scroll(0, 0);
+              $(form[i + 1]).fadeOut();
+              $(form[i + 1]).fadeIn();
+            }else {
+              window.location.href = "{{url('plan-conclusion',$planId)}}";
+            }
+        }else{
+          element.querySelector(".fa-spinner").classList.add("d-none");
                         toastr.error(response);
-                      }
-                    })
-                    .catch(error => {
-                      toastr.error(error);
-                    });
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        reject(errorThrown);
+      }
+    });
+
+
+
+        // saveAiQuestion(element, currentForm , aiQuestion)
+        //             .then(response => {
+        //               if (response) {
+        //                 element.querySelector(".fa-spinner").classList.add("d-none");
+        //                 if(i < (form.length-1))
+        //                 {
+        //                   setNextStep(i);
+        //                   form[i].classList.add("d-none");
+        //                   form[i + 1].classList.remove("d-none");
+        //                   window.scroll(0, 0);
+        //                   $(form[i + 1]).fadeOut();
+        //                   $(form[i + 1]).fadeIn();
+        //                 }else {
+        //                   window.location.href = "{{url('plan-conclusion',$planId)}}";
+        //                 }
+
+        //               } else {
+        //                 element.querySelector(".fa-spinner").classList.add("d-none");
+        //                 toastr.error(response);
+        //               }
+        //             })
+        //             .catch(error => {
+        //               toastr.error(error);
+        //             });
       }
 
     });
@@ -1823,9 +1864,6 @@ url = "{{route('generate.ai.question')}}";
     questionCategory : questionCategory,
   };
 
-  
-
-
   document.querySelector(".overlay").classList.remove("d-none");
 
   $.ajax({
@@ -1837,6 +1875,7 @@ url = "{{route('generate.ai.question')}}";
     },
     // contentType: "application/json", // Set the Content-Type header
     success : function(res){
+      form.querySelector(".fa-spinner").classList.add("d-none");
       if(res.success == true)
       {
         toastr.success(res.msg);
@@ -1859,6 +1898,7 @@ url = "{{route('generate.ai.question')}}";
     },
     error : function(err){
       toastr.error(err)
+      form.querySelector(".fa-spinner").classList.add("d-none");
     }
   })
 
@@ -1980,7 +2020,7 @@ document.querySelectorAll(".clear_form").forEach(btn => {
           // form.querySelector(".extra-bonus-question").innerHTML = "";
           
           generalQuestion.forEach(question =>{
-            question.querySelector(".form_box_input").value = "";
+            // question.querySelector(".form_box_input").value = "";
             question.querySelector(".form_box_input").removeAttribute("disabled");
           })
         }else{

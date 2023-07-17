@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\{ Plan , Feedback};
+use App\Models\{ Plan , Feedback , AiReport};
 
 
 class AiQuestion extends Model
@@ -24,5 +24,11 @@ class AiQuestion extends Model
     {
         return $this->morphMany(Feedback::class, 'feedbackable');
     }
+
+    public function aiReport()
+    {
+        return $this->hasOne(AiReport::class , 'ai_id' , 'id');
+    }
+
 
 }

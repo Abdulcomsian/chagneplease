@@ -1,8 +1,29 @@
 @extends('analyst.main_investee')
 @section('main-content')
+
+@if($financialDetail->financialAiQuestion)
+  <div class="modal modal2" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ai Report</h5>
+          <button type="button" class="close close-report-modal" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{$financialDetail->financialAiQuestion->aiReport->report}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close-report-modal" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endif
     {{-- <input type="hidden" name="planable" id="planableId" value="{{ $marketDetail ? $marketDetail->id : "" }}" > --}}
     <div class="qs_title d-flex align-items-center">
-      <img src="{{asset('img/sl.png')}}" alt="sl">
+      <img class="company_logo" src="{{asset('uploads/'.$financialDetail->company_logo)}}"  alt="sl">
       <div class="d-flex justify-content-between w-100">
         <h2>GOOD LOOP</h2>
         @if($financialDetail->financialAiQuestion)
@@ -50,14 +71,21 @@
      @endif
 
 
+     <div class="d-flex justify-content-between">
+
      @if($financialDetail->financialAiQuestion)
       <div class="qs_btns d-flex justify-content-between align-content-center">
         <div class="btns d-flex">
           <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model1">Rate</a>
         </div>
       </div>
+      <div class="qs_btns d-flex justify-content-between align-content-center">
+        <div class="btns d-flex report-modal">
+            <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model2">Report</a>
+        </div>
+    </div>
       @endif
-
+     </div>
 
     </div>
 
@@ -101,6 +129,13 @@
         } 
     });
 
+  })
+  $(".report-modal").on("click" , function(){
+    $(".modal2").modal("show");
+  })
+
+  $(".close-report-modal").on("click" , function(){
+     $(".modal2").modal("hide");
   })
 </script>
 @endsection

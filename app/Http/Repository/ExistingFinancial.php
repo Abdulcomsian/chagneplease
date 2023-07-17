@@ -68,7 +68,7 @@ class ExistingFinancial{
     {
         $planId = $request->id;
 
-        $existingFinancialDetail = Plan::with('investmentAnswer.question','investmentAiQuestion.feedbacks')->where('id' , $planId)->first();
+        $existingFinancialDetail = Plan::with('investmentAnswer.question','investmentAiQuestion.feedbacks' , 'investmentAiQuestion.aiReport')->where('id' , $planId)->first();
 
         return view('analyst.questions.existing_financial')->with(['planId' => $planId , 'investmentDetail' => $existingFinancialDetail]);
     }

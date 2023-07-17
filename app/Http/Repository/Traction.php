@@ -37,7 +37,7 @@ class Traction{
     {
         $planId = $request->id;
 
-        $tractionDetail = Plan::with('tractionAnswer.question' , 'tractionAiQuestion.feedbacks')->where('id' , $planId)->first();
+        $tractionDetail = Plan::with('tractionAnswer.question' , 'tractionAiQuestion.feedbacks' , 'tractionAiQuestion.aiReport' )->where('id' , $planId)->first();
 
         return view('analyst.questions.traction')->with(['planId' => $planId , 'tractionDetail' => $tractionDetail]);
     }

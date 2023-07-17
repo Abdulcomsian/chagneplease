@@ -19,7 +19,6 @@ class FinancialController extends Controller
     public function get_financial(Request $request)
     {
         return $this->financial->get_financial_plan_detail($request);
-
     }
 
     public function add_financial(Request $request)

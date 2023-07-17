@@ -35,7 +35,7 @@ class Competition{
     {
         $planId = $request->id;
         
-        $competitionDetail = Plan::with('competitionAnswer.question' , 'competitionAiQuestion.feedbacks')->where('id' , $planId)->first();
+        $competitionDetail = Plan::with('competitionAnswer.question' , 'competitionAiQuestion.feedbacks' , 'competitionAiQuestion.aiReport')->where('id' , $planId)->first();
 
         return view('analyst.questions.competition')->with(["planId" => $planId , "competitionDetail" => $competitionDetail]);
     }

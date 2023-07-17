@@ -2,7 +2,7 @@
 
 namespace App\Http\Repository;
 use OpenAI\Laravel\Facades\OpenAI;
-use App\Models\{ AiQuestion , GeneralAnswer, Plan , AiBonusQuestion, GeneralQuestion , QuestionCategory , FeedBack};
+use App\Models\{ AiQuestion , GeneralAnswer, Plan , AiBonusQuestion, AiReport, GeneralQuestion , QuestionCategory , FeedBack};
 
 class ArtificialQuestion{
 
@@ -29,14 +29,6 @@ class ArtificialQuestion{
 
         $planCurrentStage = $plan->screeningAnswer[0]->answer;
         $planCurrentCategory = $plan->screeningAnswer[2]->answer;
-
-        // $prompt = "Consider a company at the $planCurrentStage stage, operating in the $planCurrentCategory industry\n
-        //             The company is located in $plan->city , $plan->country , and their target audience is\n
-        //             The company's mission, as described in their executive summary, is: '$plan->description'\n
-        //             Given this information,                    
-        //             please generate six specific in depth questions an investment analyst might ask that would help better understand the company's $planCurrentCategory\n 
-        //             These questions should be designed to extract further detail about the company's strategy, competitive positioning,\n 
-        //             and plans for growth in the context of their impact goals.\n";
         
 
             $prompt = "Consider a company at the $planCurrentStage stage, operating in the $planCurrentCategory industry.\n
@@ -66,15 +58,11 @@ class ArtificialQuestion{
             $prompt .= "$question \n";
             $prompt .= "Answer: $answer \n";
         }
-
-      
-        // $prompt .= "Please consider above $questionType question and also screening question, please create at least 6 more new questions related to $questionType question with no answer";
-        // $prompt .= "considering above information create new 6 in depth questions  an investment analyst might ask that would help better understand the company's related to $questionType";
-        // $prompt .= "Please create questions in array form question format should be like 1) What is you current model? Question should be in $plan->language language. ";
         
         $prompt .= "Given all the above information, please formulate six new questions that an investment analyst might ask that would help better understand the company's related to $questionType \n";
         $prompt .= "Ensure that the questions are diverse, covering different facets of the category, and are tailored based on the information provided by the company so far. \n";
         $prompt .= "The questions should be presented in an ordered list and written in $plan->language. \n Please add a tag questionStart before starting question list? before starting questions add label 'questionStartHere' and at end add this label 'questionEndsHere' ";
+        $prompt .= "generate prompt in json format";
         
         $result = OpenAI::completions()->create([
             'model' => 'text-davinci-003',
@@ -82,6 +70,7 @@ class ArtificialQuestion{
             'max_tokens' => 350,
             'temperature' => 0.8
         ]);
+
 
         // $moreQuestions = explode("?" , str_replace("\n" ,"", $result['choices'][0]['text']));
         $moreQuestions = str_replace("\n" ,"", $result['choices'][0]['text']);
@@ -267,9 +256,14 @@ class ArtificialQuestion{
             $questionCategory = $request->questionCategory;
             $planId = $request->planId;
     
-            $questionArray = GeneralQuestion::where('category_id' , $questionCategory)->get()->pluck('id')->toArray();
+            // $questionArray = GeneralQuestion::where('category_id' , $questionCategory)->get()->pluck('id')->toArray();
             
-            GeneralAnswer::whereIn('id' , $questionArray)->where('plan_id' , $planId)->delete();
+            GeneralAnswer::whereHas('question' , function($query) use ($questionCategory){
+                                        $query->where('category_id' , $questionCategory);
+                                    })
+                                    ->where('plan_id' , $planId)
+                                    ->delete();
+            // GeneralAnswer::whereIn('id' , $questionArray)->where('plan_id' , $planId)->delete();
     
             AiQuestion::where('plan_id' , $planId)->where('question_category_id' , $questionCategory)->delete();
     
@@ -310,41 +304,58 @@ class ArtificialQuestion{
         $planCurrentStage = $plan->screeningAnswer[0]->answer;
         $planCurrentCategory = $plan->screeningAnswer[2]->answer;
 
-        $prompt = "Consider a company at the $planCurrentStage stage, operating in the $planCurrentCategory industry\n
-                    The company is located in $plan->city , $plan->country , and their target audience is\n
-                    The company's mission, as described in their executive summary, is: '$plan->description'\n
-                    Given this information,
-                    please generate six specific questions that could help better understand the company's $plan->category.\n 
-                    These questions should be designed to extract further detail about the company's strategy, competitive positioning,\n 
-                    and plans for growth in the context of their impact goals.\n";
+        // $prompt = "Consider a company at the $planCurrentStage stage, operating in the $planCurrentCategory industry\n
+        //             The company is located in $plan->city , $plan->country , and their target audience is\n
+        //             The company's mission, as described in their executive summary, is: '$plan->description'\n
+        //             Given this information\n";
 
-        $prompt .= "company has submitted its screening question:\n";
+        // $prompt = "company has submitted its screening question:\n\n\n";
 
-        foreach($plan->screeningAnswer as $answer)
-        {
-            $question = $answer->screeningQuestion->question;
-            $questionAnswer   = $answer->answer;
-            $prompt .= "$question ?\n, Answer: $questionAnswer.. \n";
+        // foreach($plan->screeningAnswer as $answer)
+        // {
+        //     $question = $answer->screeningQuestion->question;
+        //     $questionAnswer   = $answer->answer;
+        //     $prompt .= "Question: $question\n"; 
+        //     $prompt .= "Answer: [$questionAnswer] \n\n";
+        // }
+
+        $prompt = " Below question are related to $categoryTitle category while applying for raising investment. \n";
+
+        
+
+        $generalCategoryQuestion = GeneralAnswer::with('question')
+                                                ->whereHas('question' , function($query) use ($category) {
+                                                    $query->where('category_id' , $category);
+                                                })
+                                                ->where('plan_id' , $planId)
+                                                ->get();
+        
+        $prompt .= "Considering the below information about the company related to $planCurrentCategory, please provide rating out of 10 that an investment analyst will rate for below questions and answers related to $planCurrentCategory. Then give a rationale of up to 400 words for that rating \n\n\n";
+    
+        foreach($generalCategoryQuestion as $detail){
+            $question = $detail->question->question;
+            $answer = $detail->answer;
+            $prompt .= "Question: $question \n";
+            $prompt .= "Answer: [$answer] \n\n";
         }
 
-        $prompt .= " Below question are related to $categoryTitle Research section while applying for raising investment. \n";
+
 
         foreach($questionList as $qt)
         {
             $question = $qt["question"];
             $answer = $qt["answer"];
-            $prompt .= "$question \n";
-            $prompt .= "Answer: $answer \n";
+            $prompt .= "Question: $question \n";
+            $prompt .= "Answer: [$answer] \n\n";
         }
 
-        $prompt .= "Consider above question and answer please give me overall rating out of 10, only give me rating number";
 
 
-        $rating = $this->recursiveAi($prompt);
+        [$rating , $report] = $this->recursiveAi($prompt);
        
         //new code ends here
 
-        AiQuestion::updateOrCreate(
+        $aiQuestion = AiQuestion::updateOrCreate(
             [
                 'plan_id' => $planId,
                 'question_category_id' => $category,
@@ -358,6 +369,11 @@ class ArtificialQuestion{
             ]
         );
 
+        AiReport::updateOrCreate(
+                    ['ai_id' => $aiQuestion->id], 
+                    ['ai_id' => $aiQuestion->id , 'report' => $report]
+                );
+
             return response()->json(["success" => true , "msg" => "Question Added Successfully"]);
         
         }catch(\Exception $e){
@@ -369,24 +385,34 @@ class ArtificialQuestion{
 
     public function recursiveAi($prompt)
     {
-        $checkArray = ["" , null];
+        // $checkArray = ["" , null];
 
         $result = OpenAI::completions()->create([
             'model' => 'text-davinci-003',
             'prompt' => $prompt,
-            'max_tokens' => 5,
+            'max_tokens' => 400,
             'temperature' => 0.2
         ]);
 
+        
+        // dd( $prompt , $result['choices'][0]['text']);
+        // $rating  = (int)preg_replace("/[^0-9]/", "" , $result['choices'][0]['text']);
 
-        $rating  = (int)preg_replace("/[^0-9]/", "" , $result['choices'][0]['text']);
-
-        if(in_array( $rating , $checkArray) || gettype($rating) !== "integer" || $rating > 10)
-        {
-            $this->recursiveAi($prompt);
+        foreach ($result['choices'] as $choice) {
+            $ratingStartPos = strpos($choice['text'], 'Rating: ') + strlen('Rating: ');
+            $ratingEndPos = strpos($choice['text'], '/10', $ratingStartPos);
+            $rating = substr($choice['text'], $ratingStartPos, $ratingEndPos - $ratingStartPos);
+            $rationaleStartPos = strpos($choice['text'], 'Rationale: ') + strlen('Rationale: ');
+            $rationale = substr($choice['text'], $rationaleStartPos);
         }
+    
 
-        return $rating;
+        // if(in_array( $rating , $checkArray) || gettype($rating) !== "integer" || $rating > 10)
+        // {
+        //     $this->recursiveAi($prompt);
+        // }
+
+        return [(int)$rating , $rationale];
 
     }
 

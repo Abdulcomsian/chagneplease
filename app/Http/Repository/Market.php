@@ -35,7 +35,7 @@ class Market{
     {
         $planId = $request->id;
         // $marketDetail = MarketPlan::where('plan_id' , $planId)->first();
-        $marketDetail = Plan::with('marketAnswer.question' , 'marketAiQuestion.feedbacks')->where('id' , $planId)->first();
+        $marketDetail = Plan::with('marketAnswer.question' , 'marketAiQuestion.feedbacks' , 'marketAiQuestion.aiReport')->where('id' , $planId)->first();
         
         return view('analyst.questions.market')->with(['planId'=>$planId , "marketDetail" => $marketDetail]);
     }
