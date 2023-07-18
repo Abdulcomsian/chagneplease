@@ -6,7 +6,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Ai Report</h5>
+          <h5 class="modal-title">AI Rationale</h5>
           <button type="button" class="close close-report-modal" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -26,7 +26,7 @@
     <div class="qs_title d-flex align-items-center">
       <img class="company_logo" src="{{asset('uploads/'.$businessDetail->company_logo)}}"  alt="sl">
       <div class="d-flex justify-content-between w-100">
-        <h2>GOOD LOOP</h2>
+        <h2>{{$businessDetail->company_name}}</h2>
         @if($businessDetail->businessAiQuestion)
         <h4 class="mt-2">
           {{$businessDetail->businessAiQuestion->ai_rating}} / 10
@@ -82,7 +82,7 @@
       </div>
       <div class="qs_btns d-flex justify-content-between align-content-center">
         <div class="btns d-flex report-modal">
-            <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model2">Report</a>
+            <a href="#" class="btn btn-blue-outline" data-bs-toggle="modal" data-bs-target="#model2">AI Rationale</a>
         </div>
     </div>
       @endif

@@ -52,7 +52,7 @@ Route::get('/home' , [UserController::class ,'get_home'])->name('user.home');
 Route::post('/load-more-plan' , [PlanController::class , 'load_more_plan'])->name('load.more.plan');
 
 // user route starts here
-Route::group(['middleware' => ['auth' ,'auth.investee', 'preventBackHistory']] , function(){
+Route::group(['middleware' => ['preventBackHistory' , 'auth' ,'auth.investee']] , function(){
 
     Route::get('/signed-up' , [UserController::class , 'get_signed_up'])->name('user.signed_up');
     // adding market plan
@@ -166,7 +166,7 @@ Route::group( ["prefix" => "admin"] , function(){
         Route::post("/authenticate-admin" , [AdminController::class , 'authenticate'])->name('admin.authenticate');
     });
 
-    Route::group(['middleware' => "admin.authenticate"] , function(){
+    Route::group(['middleware' => ["preventBackHistory","admin.authenticate"]] , function(){
         Route::get('/' , [DashboardController::class , 'get_admin_dashboard'])->name('admin');
         Route::get('/home', [DashboardController::class , 'get_admin_dashboard'])->name('admin.dashboard');
         Route::get('/analyst-list' , [AnalystController::class , 'get_analyst'])->name('admin.analyst');
@@ -196,7 +196,7 @@ Route::group(["prefix" => "analyst"] , function(){
         Route::post('/authenticate-analyst' , [AnalystController::class , 'authenticate'])->name('analyst.authenticate');
     });
 
-    Route::group(['middleware' => 'analyst.authenticate'] , function(){
+    Route::group(['middleware' => ['preventBackHistory','analyst.authenticate']] , function(){
         Route::get("/" , [DashboardController::class , 'get_analyst_dashboard' ])->name('analyst');
         Route::get("/home" , [DashboardController::class , 'get_analyst_dashboard' ])->name('analyst.dashboard');
         Route::get("/investee-list",[InvesteeController::class , 'get_investee'])->name('analyst.investee');
@@ -219,16 +219,16 @@ Route::group(["prefix" => "analyst"] , function(){
         Route::post("analyst-delete-plan" , [PlanController::class , "analyst_delete_plan"])->name("analyst.delete.plan");
         Route::post("analyst-delete-investee" , [UserController::class , "analyst_delete_investee"])->name("analyst.delete.investee");
         Route::group(["prefix"=>"investee"], function(){
-            Route::get("/business-model/{id}" ,[BusinessModelController::class,'get_business_model']);
+            Route::get("/market/{id}" ,[MarketController::class,'get_market']);
+            Route::get("/traction/{id}" ,[TractionController::class , 'get_traction']);
+            Route::get("/team/{id}" ,[TeamController::class , 'get_team']);
             Route::get("/competition/{id}",[CompetitionController::class ,'get_competition']);
+            Route::get("/financial/{id}",[FinancialController::class , 'get_financial']);
+            Route::get("/intellectual-property/{id}" ,[IntellectualPropertyController::class , 'get_intellectual_property']);
+            Route::get("/funds/{id}",[FundsController::class , 'get_funds']);
+            Route::get("/business-model/{id}" ,[BusinessModelController::class,'get_business_model']);
             Route::get("/corporate-structure/{id}",[CorporateStructureController::class ,'get_corporate_structure']);
             Route::get("/existing-financial-round/{id}",[ExistingFinancialRoundController::class , 'get_existing_financial_round']);
-            Route::get("/financial/{id}",[FinancialController::class , 'get_financial']);
-            Route::get("/funds/{id}",[FundsController::class , 'get_funds']);
-            Route::get("/intellectual-property/{id}" ,[IntellectualPropertyController::class , 'get_intellectual_property']);
-            Route::get("/market/{id}" ,[MarketController::class,'get_market']);
-            Route::get("/team/{id}" ,[TeamController::class , 'get_team']);
-            Route::get("/traction/{id}" ,[TractionController::class , 'get_traction']);
         });
         
         Route::get('/logout' , [AnalystController::class , 'logout'])->name('analyst.logout');

@@ -160,16 +160,16 @@
                             </div>
                             <div class="col-lg-4 d-flex justify-content-end">
                               @php
-                                $market  =  $plan->Market ? $plan->Market->rating ?? 0 : 0;
-                                $traction  = $plan->Traction ? $plan->Traction->rating ?? 0 : 0;
-                                $team  = $plan->Team ? $plan->Team->rating ?? 0 : 0; 
-                                $businessModel  = $plan->BusinessModel ? $plan->BusinessModel->rating ?? 0 : 0;
-                                $competition  = $plan->Competition ? $plan->Competition->rating ?? 0 : 0;
-                                $corporateStructure = $plan->CorporateStructure ? $plan->CorporateStructure->rating ?? 0 : 0;
-                                $existingFinancial  = $plan->ExistingFinancial ? $plan->ExistingFinancial->rating ?? 0 : 0;
-                                $financial = $plan->Financial ? $plan->Financial->rating ?? 0 : 0;
-                                $fund = $plan->Fund ? $plan->Fund->rating ?? 0 : 0;
-                                $intellectualProperty = $plan->IntellectualProperty ? $plan->IntellectualProperty->rating ?? 0 : 0;
+                                $market  =  $plan->marketAiQuestion ? $plan->marketAiQuestion->analyst_rating ?? 0 : 0;
+                                $traction  = $plan->tractionAiQuestion ? $plan->tractionAiQuestion->analyst_rating ?? 0 : 0;
+                                $team  = $plan->teamAiQuestion ? $plan->teamAiQuestion->analyst_rating ?? 0 : 0; 
+                                $businessModel  = $plan->businessAiQuestion ? $plan->businessAiQuestion->analyst_rating ?? 0 : 0;
+                                $competition  = $plan->competitionAiQuestion ? $plan->competitionAiQuestion->analyst_rating ?? 0 : 0;
+                                $corporateStructure = $plan->corporateAiQuestion ? $plan->corporateAiQuestion->analyst_rating ?? 0 : 0;
+                                $existingFinancial  = $plan->investmentAiQuestion ? $plan->investmentAiQuestion->analyst_rating ?? 0 : 0;
+                                $financial = $plan->financialAiQuestion ? $plan->financialAiQuestion->analyst_rating ?? 0 : 0;
+                                $fund = $plan->fundAiQuestion ? $plan->fundAiQuestion->analyst_rating ?? 0 : 0;
+                                $intellectualProperty = $plan->intellectualAiQuestion ? $plan->intellectualAiQuestion->analyst_rating ?? 0 : 0;
 
                                 $totalPercentage = (($market + $traction + $team + $businessModel + $competition + $corporateStructure + $existingFinancial + $financial + $fund + $intellectualProperty) / 100)* 100;
 
@@ -201,8 +201,8 @@
                       </div>
                     </div>
                     <div class="statistic-box card px-3 py-5">
-                      <h3><strong>Good Loop</strong></h3>
-                      <h5>Brooklyn Ny</h5>
+                      <h3><strong>{{$plan->company_name}}</strong></h3>
+                      <h5>{{$plan->city}}, {{$plan->country}}</h5>
                       <hr>
                       <div>
                         <div class="d-flex justify-content-between px-4">
@@ -246,7 +246,7 @@
                           <p class="rating-holder" style="background-color: @if($intellectualProperty<=4) red @elseif($intellectualProperty>4 && $intellectualProperty<=7) yellow @else green @endif">{{$intellectualProperty}}/10</p>
                         </div>
                       </div>
-                      <button type="button" class="btn btn-primary btn-lg btn-block">View</button>
+                      <a href="{{url('project-details' , $plan->id)}}" target="_blank" class="btn btn-primary btn-lg btn-block">View</a>
                     </div> 
                   </div>
                 @endforeach

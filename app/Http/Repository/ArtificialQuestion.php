@@ -2,6 +2,7 @@
 
 namespace App\Http\Repository;
 use OpenAI\Laravel\Facades\OpenAI;
+
 use App\Models\{ AiQuestion , GeneralAnswer, Plan , AiBonusQuestion, AiReport, GeneralQuestion , QuestionCategory , FeedBack};
 
 class ArtificialQuestion{
@@ -68,7 +69,7 @@ class ArtificialQuestion{
             'model' => 'text-davinci-003',
             'prompt' => $prompt,
             'max_tokens' => 350,
-            'temperature' => 0.8
+            'temperature' => 0.8,
         ]);
 
 
@@ -186,7 +187,7 @@ class ArtificialQuestion{
             'model' => 'text-davinci-003',
             'prompt' => $prompt,
             'max_tokens' => 200,
-            'temperature' => 0.8
+            'temperature' => 0.8,
         ]);
 
         $moreQuestions = str_replace("\n" ,"", $result['choices'][0]['text']);
@@ -349,6 +350,7 @@ class ArtificialQuestion{
             $prompt .= "Answer: [$answer] \n\n";
         }
 
+        $prompt .= ".The response should be like rating: [report_rating] , rationale: [rationale-detail] ";
 
 
         [$rating , $report] = $this->recursiveAi($prompt);
@@ -391,7 +393,7 @@ class ArtificialQuestion{
             'model' => 'text-davinci-003',
             'prompt' => $prompt,
             'max_tokens' => 400,
-            'temperature' => 0.2
+            'temperature' => 0.2,
         ]);
 
         
@@ -405,7 +407,6 @@ class ArtificialQuestion{
             $rationaleStartPos = strpos($choice['text'], 'Rationale: ') + strlen('Rationale: ');
             $rationale = substr($choice['text'], $rationaleStartPos);
         }
-    
 
         // if(in_array( $rating , $checkArray) || gettype($rating) !== "integer" || $rating > 10)
         // {

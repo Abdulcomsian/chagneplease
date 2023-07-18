@@ -9,6 +9,7 @@ use App\Models\{ User , ScreeningQuestion , GeneralQuestion };
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
+use App\Http\AppConst;
 
 class UserController extends Controller
 {
@@ -217,7 +218,7 @@ class UserController extends Controller
 
     public function get_investee_list()
     {
-        $investees = User::where("role", \AppConst::INVESTEE_ROLE)->get();
+        $investees = User::where("role", AppConst::INVESTEE_ROLE)->get();
         
         return DataTables::of($investees)
 
@@ -244,7 +245,7 @@ class UserController extends Controller
 
     public function get_invester_list()
     {
-        $investers = User::where("role", \AppConst::INVESTER_ROLE)->get();
+        $investers = User::where("role", AppConst::INVESTER_ROLE)->get();
         
         return DataTables::of($investers)
 

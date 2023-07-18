@@ -27,7 +27,14 @@ class ProjectFilter extends Component
 
     public function render()
     {
-        $plans = !isset($this->planList) ? Plan::orderBy('id' , 'desc')->where('status' , 'accepted')->paginate(2) : $this->planList->paginate(2); 
+        $plans = !isset($this->planList) ? Plan::with('marketAiQuestion' ,'tractionAiQuestion' , 'teamAiQuestion' , 'competitionAiQuestion' , 'financialAiQuestion' , 'fundAiQuestion' , 'intellectualAiQuestion' , 'investmentAiQuestion' , 'businessAiQuestion' ,'corporateAiQuestion' )
+                                                  ->orderBy('id' , 'desc')
+                                                  ->where('status' , 'accepted')
+                                                  ->paginate(2) 
+        
+                                                  :
+        
+                                                 $this->planList->paginate(2); 
         
         return view('livewire.project-filter' , ['plans' => $plans]);
     }
@@ -72,6 +79,7 @@ class ProjectFilter extends Component
                             $query->where('investment','<=' , $this->maximumRange);
 
                           })
+                          ->with('marketAiQuestion' ,'tractionAiQuestion' , 'teamAiQuestion' , 'competitionAiQuestion' , 'financialAiQuestion' , 'fundAiQuestion' , 'intellectualAiQuestion' , 'investmentAiQuestion' , 'businessAiQuestion' ,'corporateAiQuestion' )
                           ->where('status' , 'accepted')
                           ->orderBy('id' , 'desc');
 

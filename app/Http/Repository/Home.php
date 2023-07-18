@@ -16,7 +16,7 @@ class Home{
     public function get_project_details($id)
     {
         $plan = Plan::with(
-                        'marketAnswer.question' , 'tractionAnswer.question' , 'teamAnswer.question' , 'competitionAnswer.question','financialAnswer.question','fundAnswer.question','intellectualAnswer.question','corporateAnswer.question','businesAnswer.question','investmentAnswer.question',
+                        'marketAnswer.question' , 'tractionAnswer.question' , 'teamAnswer.question' , 'competitionAnswer.question','financialAnswer.question','fundAnswer.question','intellectualAnswer.question','corporateAnswer.question','businessAnswer.question','investmentAnswer.question',
                         'marketAiQuestion','businessAiQuestion','competitionAiQuestion','corporateAiQuestion','investmentAiQuestion','financialAiQuestion' , 'fundAiQuestion' ,'intellectualAiQuestion', 'teamAiQuestion' ,'tractionAiQuestion'
                         )
                             ->where('id' , $id)
