@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xl-3 col-sm-6 col-12"> 
+        {{-- <div class="col-xl-3 col-sm-6 col-12"> 
           <div class="card">
             <div class="card-content">
               <div class="card-body">
@@ -79,11 +79,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
       </div>
     
       <div class="row">
-        <div class="col-xl-3 col-sm-6 col-12">
+        {{-- <div class="col-xl-3 col-sm-6 col-12">
           <div class="card">
             <div class="card-content">
               <div class="card-body">
@@ -151,7 +151,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
       </div>
     
       <div class="row">
@@ -161,15 +161,15 @@
               <div class="card-body">
                 <div class="media d-flex">
                   <div class="media-body text-left">
-                    <h3 class="primary">278</h3>
-                    <span>New Posts</span>
+                    <h3 class="primary">{{$totalUser}}</h3>
+                    <span>User</span>
                   </div>
                   <div class="align-self-center">
                     <i class="icon-book-open primary font-large-2 float-right"></i>
                   </div>
                 </div>
                 <div class="progress mt-1 mb-0" style="height: 7px;">
-                  <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -181,15 +181,15 @@
               <div class="card-body">
                 <div class="media d-flex">
                   <div class="media-body text-left">
-                    <h3 class="warning">156</h3>
-                    <span>New Comments</span>
+                    <h3 class="warning">{{$newUser}}</h3>
+                    <span>New User</span>
                   </div>
                   <div class="align-self-center">
                     <i class="icon-bubbles warning font-large-2 float-right"></i>
                   </div>
                 </div>
                 <div class="progress mt-1 mb-0" style="height: 7px;">
-                  <div class="progress-bar bg-warning" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-warning" role="progressbar" style="width: {{($newUser/$totalUser)*100}}%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -202,15 +202,15 @@
               <div class="card-body">
                 <div class="media d-flex">
                   <div class="media-body text-left">
-                    <h3 class="success">64.89 %</h3>
-                    <span>Bounce Rate</span>
+                    <h3 class="success">{{$totalPlan}}</h3>
+                    <span>Plan</span>
                   </div>
                   <div class="align-self-center">
                     <i class="icon-cup success font-large-2 float-right"></i>
                   </div>
                 </div>
                 <div class="progress mt-1 mb-0" style="height: 7px;">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -222,15 +222,15 @@
               <div class="card-body">
                 <div class="media d-flex">
                   <div class="media-body text-left">
-                    <h3 class="danger">423</h3>
-                    <span>Total Visits</span>
+                    <h3 class="danger">{{$newPlan}}</h3>
+                    <span>New Plan</span>
                   </div>
                   <div class="align-self-center">
                     <i class="icon-direction danger font-large-2 float-right"></i>
                   </div>
                 </div>
                 <div class="progress mt-1 mb-0" style="height: 7px;">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: {{($newPlan/$totalPlan)*100}}%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>

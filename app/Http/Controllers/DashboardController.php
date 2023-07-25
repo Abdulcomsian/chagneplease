@@ -23,7 +23,11 @@ class DashboardController extends Controller
 
     public function get_analyst_dashboard()
     {
-        return view('analyst.dashboard');
+        $newUser = User::where('status' , '=' , 'approved')->count();
+        $totalUser = User::count();
+        $plan = Plan::where('status' ,'=' , 'accepted')->count();
+        $totalPlan  = Plan::count();
+        return view('analyst.dashboard')->with(["newUser" => $newUser , "totalUser" => $totalUser , "newPlan" => $plan , "totalPlan" => $totalPlan]);
     }
 
 
