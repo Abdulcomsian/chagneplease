@@ -331,7 +331,7 @@ class ArtificialQuestion{
                                                 ->where('plan_id' , $planId)
                                                 ->get();
         
-        $prompt .= "Considering the below information about the company related to $planCurrentCategory, please provide rating out of 10 that an investment analyst will rate for below questions and answers related to $planCurrentCategory. Then give a rationale of up to 400 words for that rating \n\n\n";
+        $prompt .= "Considering the below information about the company related to $planCurrentCategory, please provide rating out of 10 that an investment analyst will rate for below questions and answers related to $planCurrentCategory. Then give a rationale of up to 400 words for that below questions \n\n\n";
     
         foreach($generalCategoryQuestion as $detail){
             $question = $detail->question->question;
