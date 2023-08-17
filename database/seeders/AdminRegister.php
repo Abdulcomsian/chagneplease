@@ -14,6 +14,6 @@ class AdminRegister extends Seeder
      */
     public function run()
     {
-            Admin::create(['firstname' => 'admin' , 'email' => 'admin@gmail.com' , 'password' => Hash::make('admin@123') ]);       
+            Admin::create(['firstname' => 'admin' , 'email' => 'admin@gmail.com' , 'password' => Hash::make('admin123') ]);       
     }
 }

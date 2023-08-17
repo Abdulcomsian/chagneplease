@@ -1224,11 +1224,11 @@ window.onload = function(){
       let element = e.target;
       let currentForm = element.closest(".form");
       currentForm.querySelector(".fa-spinner").classList.remove("d-none");
+      console.log(currentForm.querySelector(".fa-spinner"));
       if(check.includes(currentForm.querySelector(".extra-question").innerHTML.trim()))
       {
         generateAiQuestion(element , currentForm)
       }else{
-      
         let check = [undefined , false , null , ""];
         let extraQuestion = currentForm.querySelectorAll(".extra-question-section");
         let aiQuestion = [];
@@ -1260,7 +1260,7 @@ window.onload = function(){
 
       $.ajax({
       url: "{{route('store.ai.question')}}",
-      async: false,
+     
       type: "POST",
       data: {
         _token: "{{csrf_token()}}",

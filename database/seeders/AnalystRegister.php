@@ -18,7 +18,7 @@ class AnalystRegister extends Seeder
         Analyst::create([
                          'firstname' => 'analyst' , 
                          'email' => 'analyst@gmail.com' , 
-                         'password' => Hash::make('analyst@123')
+                         'password' => Hash::make('analyst123')
                         ]);        
     }
 }
