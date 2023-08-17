@@ -12,7 +12,7 @@ class CorporateStructure extends Model
     
     protected $primaryKey = "id";
     
-    protected $table = "Corporate_structures";
+    protected $table = "corporate_structures";
     
     protected $fillable = [
         'plan_id',
