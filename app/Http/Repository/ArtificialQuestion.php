@@ -66,7 +66,7 @@ class ArtificialQuestion{
         $prompt .= "generate prompt in json format";
         
         $result = OpenAI::completions()->create([
-            'model' => 'text-davinci-003',
+            'model' => 'GPT-4',
             'prompt' => $prompt,
             'max_tokens' => 350,
             'temperature' => 0.8,
@@ -184,7 +184,7 @@ class ArtificialQuestion{
         $prompt .="Please create question in array form question format should be like 1) What is you current model? Question should be in $plan->language language. Please add a tag questionStart before starting question list? before starting questions add label 'questionStartHere' and at end add this label 'questionEndsHere' ";
 
         $result = OpenAI::completions()->create([
-            'model' => 'text-davinci-003',
+            'model' => 'GPT-4',
             'prompt' => $prompt,
             'max_tokens' => 200,
             'temperature' => 0.8,
@@ -390,7 +390,7 @@ class ArtificialQuestion{
         // $checkArray = ["" , null];
 
         $result = OpenAI::completions()->create([
-            'model' => 'text-davinci-003',
+            'model' => 'GPT-4',
             'prompt' => $prompt,
             'max_tokens' => 400,
             'temperature' => 0.2,
