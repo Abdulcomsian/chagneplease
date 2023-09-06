@@ -1280,7 +1280,8 @@ window.onload = function(){
               $(form[i + 1]).fadeOut();
               $(form[i + 1]).fadeIn();
             }else {
-              window.location.href = "{{url('plan-conclusion',$planId)}}";
+              window.location.href = '{{url("goals",$planId)}}';
+              // window.location.href = "{{url('plan-conclusion',$planId)}}";
             }
         }else{
           element.querySelector(".fa-spinner").classList.add("d-none");
@@ -1981,7 +1982,8 @@ bonusSection.innerHTML = html;
   let lastForm = forms[forms.length - 1];
   if(!lastForm.classList.contains("d-none"))
   {
-    window.location.href = "{{url('plan-conclusion',$planId)}}";
+    window.location.href = '{{url("goals",$planId)}}';
+    // window.location.href = "{{url('plan-conclusion',$planId)}}";
   }
   
 

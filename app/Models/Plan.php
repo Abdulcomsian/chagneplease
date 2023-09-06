@@ -20,6 +20,7 @@ use App\Models\{
     GeneralAnswer,
     AiQuestion,
     AiBonusQuestion,
+    Goal
  };
 
 class Plan extends Model
@@ -259,6 +260,10 @@ class Plan extends Model
     public function investmentBonusQuestion()
     {
         return $this->hasOne(AiBonusQuestion::class , 'plan_id' , 'id')->where('question_category_id' , 10);
+    }
+
+    public function goals(){
+        return $this->hasMan(Goal::class , 'plan_id' ,'id');
     }
 
 }

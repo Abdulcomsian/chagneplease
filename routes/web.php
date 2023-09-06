@@ -20,9 +20,9 @@ use App\Http\Controllers\{
     PlanController,
     TestController,
     ScreeningController,
-    AiQuestionController
+    AiQuestionController,
+    GoalController
 };
-use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +85,10 @@ Route::group(['middleware' => ['preventBackHistory' , 'auth' ,'auth.investee']] 
     Route::get('/delete-plan/{id}' , [PlanController::class , 'delete_user_plan'])->name('delete-plan');
     //Investee Question
     Route::get('/investee-questions/{planId}', [UserController::class , 'get_investee_question_form'])->name('user.investee_question_form');
+    //Goal
+    Route::get('/goals/{planId}' , [GoalController::class , 'get_goal_form']);
+    //add Plan Goal
+    Route::post('add-goals' , [GoalController::class , 'add_plan_goal'])->name('add_plan_goal');
     //Plan Conclusion
     Route::get('/plan-conclusion/{planId}', [UserController::class , 'get_plan_conclusion']);
     //Add Plan Conclustion
@@ -110,12 +114,6 @@ Route::group(['middleware' => ['preventBackHistory' , 'auth' ,'auth.investee']] 
     //Clear form
     Route::post('clear-form' , [AiQuestionController::class , 'clearQuestions'])->name('clear.question');
 });
-
-
-
-
-
-
 
 
 
