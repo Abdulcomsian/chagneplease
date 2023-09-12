@@ -35,7 +35,7 @@ class BusinessModel{
     {
         $planId = $request->id;
 
-        $businessModelDetail = Plan::with('businessAnswer.question','businessAiQuestion.feedbacks' , 'businessAiQuestion.aiReport')->where('id' , $planId)->first();
+        $businessModelDetail = Plan::with( 'goals', 'businessAnswer.question','businessAiQuestion.feedbacks' , 'businessAiQuestion.aiReport')->where('id' , $planId)->first();
 
         return view('analyst.questions.business_model')->with(["planId" => $planId , "businessDetail" => $businessModelDetail]);
 

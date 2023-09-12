@@ -34,7 +34,7 @@ class Funds{
     {
         $planId = $request->id;
 
-        $fundsDetail = Plan::with('fundAnswer.question' , 'fundAiQuestion.feedbacks','fundAiQuestion.aiReport')->where("id" , $planId)->first();
+        $fundsDetail = Plan::with('goals', 'fundAnswer.question' , 'fundAiQuestion.feedbacks','fundAiQuestion.aiReport')->where("id" , $planId)->first();
 
         return view('analyst.questions.funds')->with(["planId" => $planId , "fundsDetail" => $fundsDetail]);
     }

@@ -263,7 +263,7 @@ class Plan extends Model
     }
 
     public function goals(){
-        return $this->hasMan(Goal::class , 'plan_id' ,'id');
+        return $this->hasMany(Goal::class , 'plan_id' ,'id');
     }
 
 }

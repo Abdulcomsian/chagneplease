@@ -35,7 +35,7 @@ class IntellectualProperty{
     {
         $planId = $request->id;
 
-        $intellectualPropertyDetail = Plan::with('intellectualAnswer.question','intellectualAiQuestion.feedbacks' , 'intellectualAiQuestion.aiReport')->where("id" , $planId)->first();
+        $intellectualPropertyDetail = Plan::with( 'goals' , 'intellectualAnswer.question','intellectualAiQuestion.feedbacks' , 'intellectualAiQuestion.aiReport')->where("id" , $planId)->first();
 
         return view('analyst.questions.intellectual_property')->with(["planId" => $planId , "intellectualDetail" => $intellectualPropertyDetail]);
 

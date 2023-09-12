@@ -35,7 +35,7 @@ class Financial{
     {
         $planId = $request->id;
 
-        $financialDetail = Plan::with('financialAnswer.question' , 'financialAiQuestion.feedbacks' , 'financialAiQuestion.aiReport')->where("id" , $planId)->first();
+        $financialDetail = Plan::with('goals' , 'financialAnswer.question' , 'financialAiQuestion.feedbacks' , 'financialAiQuestion.aiReport')->where("id" , $planId)->first();
 
         return view('analyst.questions.financial')->with(["planId" => $planId , "financialDetail" => $financialDetail]);
     }

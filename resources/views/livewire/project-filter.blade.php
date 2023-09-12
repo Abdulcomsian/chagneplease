@@ -116,6 +116,115 @@
                       </label>
                     </div>
                   </div>
+
+                  <div class="filter_box">
+                    <h4 class="filter_title">GOALS</h4>
+                    <!-- checkboxs -->
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="No Poverty" id="No-Poverty" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="No-Poverty">
+                        No Poverty
+                      </label>
+                    </div>
+    
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Zero Hunger" id="Zero-Hunger" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Zero-Hunger">
+                        Zero Hunger
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Good Health and Well-Being" id="Good-Health-and-Well-Being" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Good-Health-and-Well-Being">
+                        Good Health and Well-Being
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Quality Education" id="Quality-Education" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Quality-Education">
+                        Quality Education
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Gender Equality" id="Gender-Equality" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Gender-Equality">
+                        Gender Equality
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Water and Sanitation" id="Water-and-Sanitation" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Water-and-Sanitation">
+                        Water and Sanitation
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Affordable and Clean Energy" id="Affordable-and-Clean-Energy" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Affordable-and-Clean-Energy">
+                        Affordable and Clean Energy
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Decent Work and Economic Growth" id="Decent-Work-and-Economic-Growth" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Decent-Work-and-Economic-Growth">
+                        Decent Work and Economic Growth
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Industry, Innovation, and Infrastructure" id="Industry,-Innovation,-and-Infrastructure" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Industry,-Innovation,-and-Infrastructure">
+                        Industry, Innovation, and Infrastructure
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Reduced Inequalities" id="Reduced-Inequalities" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Reduced-Inequalities">
+                        Reduced Inequalities
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Sustainable Cities and Communities" id="Sustainable-Cities-and-Communities" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Sustainable-Cities-and-Communities">
+                        Sustainable Cities and Communities
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Responsible Consumption and Production" id="Responsible-Consumption-and-Production" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Responsible-Consumption-and-Production">
+                        Responsible Consumption and Production
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Climate Action" id="Climate-Action" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Climate-Action">
+                        Climate Action
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Life Below Water" id="Life-Below-Water" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Life-Below-Water">
+                        Life Below Water
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Life on Land" id="Life-on-Land" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Life-on-Land">
+                        Life on Land
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Peace, Justice and Strong Institutions" id="Peace,-Justice-and-Strong-Institutions" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Peace,-Justice-and-Strong-Institutions">
+                        Peace, Justice and Strong Institutions
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input changeGoal" wire:model="goals" type="checkbox" value="Partnerships" id="Partnerships" wire:change.defer="updateProject">
+                      <label class="form-check-label" for="Partnerships">
+                        Partnerships
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

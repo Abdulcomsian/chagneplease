@@ -35,7 +35,7 @@ class Team{
     {   
         $planId = $request->id;
 
-        $teamDetail = Plan::with('teamAnswer.question' , 'teamAiQuestion.feedbacks' , 'teamAiQuestion.aiReport')->where("id" , $planId)->first();
+        $teamDetail = Plan::with('goals' , 'teamAnswer.question' , 'teamAiQuestion.feedbacks' , 'teamAiQuestion.aiReport')->where("id" , $planId)->first();
 
         return view('analyst.questions.team')->with(['planId' => $planId , 'teamDetail' => $teamDetail]);
     }

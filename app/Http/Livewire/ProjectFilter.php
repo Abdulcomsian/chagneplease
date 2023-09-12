@@ -20,6 +20,7 @@ class ProjectFilter extends Component
     public $atMax;
     public $atMin;
     public $category = [];
+    public $goals= [];
     protected $planList = null;
 
     protected $paginationTheme = 'bootstrap';
@@ -54,6 +55,7 @@ class ProjectFilter extends Component
         $this->country = '';
         $this->city = '';
         $this->category = [];
+        $this->goals = [];
     }
 
     public function updateProject()
@@ -77,6 +79,14 @@ class ProjectFilter extends Component
                           })->when(isset($this->maximumRange) , function($query){
 
                             $query->where('investment','<=' , $this->maximumRange);
+
+                          })->when(sizeof($this->goals) > 0 , function($query){
+
+                            $query->whereHas('goals' , function($query1){
+
+                              $query1->whereIn('title' , $this->goals);
+
+                            });
 
                           })
                           ->with('marketAiQuestion' ,'tractionAiQuestion' , 'teamAiQuestion' , 'competitionAiQuestion' , 'financialAiQuestion' , 'fundAiQuestion' , 'intellectualAiQuestion' , 'investmentAiQuestion' , 'businessAiQuestion' ,'corporateAiQuestion' )

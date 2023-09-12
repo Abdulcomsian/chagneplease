@@ -35,7 +35,7 @@ class CorporateStructure{
     {
         $planId = $request->id;
 
-        $corporateStructureDetail = Plan::with('corporateAnswer.question' , 'corporateAiQuestion.feedbacks' , 'corporateAiQuestion.aiReport')->where("id" , $planId)->first();
+        $corporateStructureDetail = Plan::with('goals' , 'corporateAnswer.question' , 'corporateAiQuestion.feedbacks' , 'corporateAiQuestion.aiReport')->where("id" , $planId)->first();
 
         return view('analyst.questions.corporate_structure')->with(["planId" => $planId, "corporateDetail" => $corporateStructureDetail]);
     }

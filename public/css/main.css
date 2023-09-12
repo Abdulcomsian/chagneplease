@@ -746,3 +746,18 @@ img.company_logo {
   height: 80px;
   border-radius: 50%;
 }
+
+img.goal-img {
+  width: 20px;
+  height: 20px;
+  margin-top: 14px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+button.close.goal-close {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: tomato;
+}

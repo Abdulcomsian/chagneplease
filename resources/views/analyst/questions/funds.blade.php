@@ -25,7 +25,7 @@
     <div class="qs_title d-flex align-items-center">
       <img class="company_logo" src="{{asset('uploads/'.$fundsDetail->company_logo)}}"  alt="sl">
       <div class="d-flex justify-content-between w-100">
-        <h2>{{$fundsDetail->company_name}}</h2>
+        <div class="d-flex"><h2>{{$fundsDetail->company_name}}</h2><img src={{asset('images/goal.png')}} class="goal-img"></div>
         @if($fundsDetail->fundAiQuestion)
         <h4 class="mt-2">
           {{$fundsDetail->marketAiQuestion->ai_rating}} / 10
@@ -89,6 +89,25 @@
 
     </div>
 
+    <div class="modal goal-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Goals</h5>
+            <button type="button" class="close goal-close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            @forelse ($fundsDetail->goals as $goal)
+                <div>{{$goal->title}}</div>
+            @empty
+                No Goal Assigned!
+            @endforelse
+          </div>
+        </div>
+      </div>
+    </div>
 @endsection
 
 @section('script')
@@ -130,6 +149,16 @@
     });
 
   })
+
+  $(".goal-img").on("click" , function(){
+    $(".goal-modal").modal("show");
+  })
+
+  $(".goal-close").on("click" , function(){
+    $(".goal-modal").modal("hide");
+  })
+
+  
   $(".report-modal").on("click" , function(){
     $(".modal2").modal("show");
   })

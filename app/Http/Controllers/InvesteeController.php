@@ -47,6 +47,7 @@ class InvesteeController extends Controller
 
     public function investee_plan_list(Request $request)
     {
+  
       $clientId = $request->investeeId;
 
       $plans = Plan::where('user_id' , $clientId)->orderBy('id' ,'desc')->get();
@@ -69,7 +70,7 @@ class InvesteeController extends Controller
                             return $plan->city;
                           })
                           ->addColumn('status' , function($plan){
-                             return $plan->status == "approved" ? '<strong class="text-success investee-status">'.$plan->status.'</strong>' : '<strong class="text-danger investee-status">'.$plan->status.'</strong>';
+                             return $plan->status == "accepted" ? '<strong class="text-success investee-status">'.$plan->status.'</strong>' : '<strong class="text-danger investee-status">'.$plan->status.'</strong>';
                           })
                           ->addColumn('action' , function($plan){
                             return '<a href="javascript:void(0)"><i class="fas fa-trash-alt delete-plan text-danger" data-plan-id="'.$plan->id.'"></i></a>

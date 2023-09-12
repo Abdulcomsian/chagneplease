@@ -61,8 +61,8 @@
             <div class="tab-pane fade show active" id="ex-with-icons-tabs-1" role="tabpanel" aria-labelledby="ex-with-icons-tab-1">
                 @php 
                     $marketCount = 0;
-                    $aiQuestion = json_decode($plan->marketAiQuestion->question);
-                    $aiAnswer = json_decode($plan->marketAiQuestion->answer);
+                    $aiQuestion = isset($plan->marketAiQuestion) && !is_null($plan->marketAiQuestion) ?  json_decode($plan->marketAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->marketAiQuestion) && !is_null($plan->marketAiQuestion) ?   json_decode($plan->marketAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->marketAnswer as $answer)
@@ -82,8 +82,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-2" role="tabpanel" aria-labelledby="ex-with-icons-tab-2">
                 @php 
                     $teamCount = 0;
-                    $aiQuestion = json_decode($plan->teamAiQuestion->question);
-                    $aiAnswer = json_decode($plan->teamAiQuestion->answer);
+                    $aiQuestion = isset($plan->teamAiQuestion) && !is_null($plan->teamAiQuestion) ?  json_decode($plan->teamAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->teamAiQuestion) && !is_null($plan->teamAiQuestion) ?   json_decode($plan->teamAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->teamAnswer as $answer)
@@ -103,8 +103,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-3" role="tabpanel" aria-labelledby="ex-with-icons-tab-3">
                 @php 
                     $tractionCount = 0;
-                    $aiQuestion = json_decode($plan->tractionAiQuestion->question);
-                    $aiAnswer = json_decode($plan->tractionAiQuestion->answer);
+                    $aiQuestion = isset($plan->tractionAiQuestion) && !is_null($plan->tractionAiQuestion) ?  json_decode($plan->tractionAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->tractionAiQuestion) && !is_null($plan->tractionAiQuestion) ?   json_decode($plan->tractionAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->tractionAnswer as $answer)
@@ -124,8 +124,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-4" role="tabpanel" aria-labelledby="ex-with-icons-tab-4">
                 @php 
                     $bunsinessCount = 0;
-                    $aiQuestion = json_decode($plan->businessAiQuestion->question);
-                    $aiAnswer = json_decode($plan->businessAiQuestion->answer);
+                    $aiQuestion = isset($plan->businessAiQuestion) && !is_null($plan->businessAiQuestion) ?  json_decode($plan->businessAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->businessAiQuestion) && !is_null($plan->businessAiQuestion) ?   json_decode($plan->businessAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->businessAnswer as $answer)
@@ -145,8 +145,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-5" role="tabpanel" aria-labelledby="ex-with-icons-tab-5">
                 @php 
                     $competitionCount = 0;
-                    $aiQuestion = json_decode($plan->competitionAiQuestion->question);
-                    $aiAnswer = json_decode($plan->competitionAiQuestion->answer);
+                    $aiQuestion = isset($plan->competitionAiQuestion) && !is_null($plan->competitionAiQuestion) ? json_decode($plan->competitionAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->competitionAiQuestion) && !is_null($plan->competitionAiQuestion) ? json_decode($plan->competitionAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->competitionAnswer as $answer)
@@ -167,8 +167,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-6" role="tabpanel" aria-labelledby="ex-with-icons-tab-6">
                 @php 
                     $corporateCount = 0;
-                    $aiQuestion = json_decode($plan->corporateAiQuestion->question);
-                    $aiAnswer = json_decode($plan->corporateAiQuestion->answer);
+                    $aiQuestion = isset($plan->corporateAiQuestion) && !is_null($plan->corporateAiQuestion) ? json_decode($plan->corporateAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->corporateAiQuestion) && !is_null($plan->corporateAiQuestion) ? json_decode($plan->corporateAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->corporateAnswer as $answer)
@@ -188,8 +188,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-7" role="tabpanel" aria-labelledby="ex-with-icons-tab-7">
                 @php 
                     $investmentCount = 0;
-                    $aiQuestion = json_decode($plan->investmentAiQuestion->question);
-                    $aiAnswer = json_decode($plan->investmentAiQuestion->answer);
+                    $aiQuestion = isset($plan->investmentAiQuestion) && !is_null($plan->investmentAiQuestion) ? json_decode($plan->investmentAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->investmentAiQuestion) && !is_null($plan->investmentAiQuestion) ? json_decode($plan->investmentAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->investmentAnswer as $answer)
@@ -209,8 +209,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-8" role="tabpanel" aria-labelledby="ex-with-icons-tab-8">
                 @php 
                     $financialCount = 0;
-                    $aiQuestion = json_decode($plan->financialAiQuestion->question);
-                    $aiAnswer = json_decode($plan->financialAiQuestion->answer);
+                    $aiQuestion = isset($plan->financialAiQuestion) && !is_null($plan->financialAiQuestion) ? json_decode($plan->financialAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->financialAiQuestion) && !is_null($plan->financialAiQuestion) ? json_decode($plan->financialAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->financialAnswer as $answer)
@@ -230,8 +230,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-9" role="tabpanel" aria-labelledby="ex-with-icons-tab-9">
                 @php 
                     $fundCount = 0;
-                    $aiQuestion = json_decode($plan->fundAiQuestion->question);
-                    $aiAnswer = json_decode($plan->fundAiQuestion->answer);
+                    $aiQuestion = isset($plan->fundAiQuestion) && !is_null($plan->fundAiQuestion) ? json_decode($plan->fundAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->fundAiQuestion) && !is_null($plan->fundAiQuestion) ? json_decode($plan->fundAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->fundAnswer as $answer)
@@ -251,8 +251,8 @@
             <div class="tab-pane fade" id="ex-with-icons-tabs-10" role="tabpanel" aria-labelledby="ex-with-icons-tab-10">
                 @php 
                     $intellectualCount = 0;
-                    $aiQuestion = json_decode($plan->intellectualAiQuestion->question);
-                    $aiAnswer = json_decode($plan->intellectualAiQuestion->answer);
+                    $aiQuestion = isset($plan->intellectualAiQuestion) && !is_null($plan->intellectualAiQuestion) ? json_decode($plan->intellectualAiQuestion->question) : [];
+                    $aiAnswer = isset($plan->intellectualAiQuestion) && !is_null($plan->intellectualAiQuestion) ? json_decode($plan->intellectualAiQuestion->answer) : [];
                     // dd($answer);
                 @endphp
                 @foreach($plan->intellectualAnswer as $answer)
