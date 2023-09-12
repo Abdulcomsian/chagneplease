@@ -14,7 +14,7 @@ class QuestionCategorySeeder extends Seeder
      */
     public function run()
     {
-        QuestionCategory::truncate();
+        // QuestionCategory::truncate();
         
         $categoryList = [
             ["title" =>  "Market & Impact"],
