@@ -8,6 +8,9 @@ class Goals{
     {
         $planId = $request->planId;
         $goals = $request->goals;
+
+        Goal::where('plan_id' ,$planId)->delete();
+
         $planGoals = [];
         foreach($goals as $goal){
             $planGoals[] = ['plan_id' => $planId , 'title' => $goal];

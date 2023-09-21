@@ -45,12 +45,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #ccc;
-  margin-bottom: 6px;
+  top: 6px;
+  left: -5px;
 }
+
+.step-counter {
+  margin-bottom: 20px;
+}
+
+.step-name {
+  font-size: 13px;
+}
+
 
 .stepper-item.active {
   font-weight: bold;
@@ -104,6 +114,8 @@
 .step-name {
   text-align: center;
 }
+
+
 
 @media (max-width: 991px) {
   .stepper-wrapper {

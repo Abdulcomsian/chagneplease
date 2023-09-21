@@ -27,7 +27,7 @@ class UserController extends Controller
     {
 
         $plan = Plan::with(
-                           'Market', 'Team', 'Traction', 'Competition', 'BusinessModel', 'CorporateStructure', 'ExistingFinancial', 'Financial', 'Fund', 
+                           'Goals','Market', 'Team', 'Traction', 'Competition', 'BusinessModel', 'CorporateStructure', 'ExistingFinancial', 'Financial', 'Fund',
                            'IntellectualProperty' , 'marketAnswer.question', 'tractionAnswer.question' , 'teamAnswer.question' , 'competitionAnswer.question',
                            'financialAnswer.question' , 'intellectualAnswer.question' , 'fundAnswer.question' , 'businessAnswer.question' , 'corporateAnswer.question', 'investmentAnswer.question',
                            'marketAiQuestion' ,'marketBonusQuestion', 'tractionAiQuestion' , 'tractionBonusQuestion','teamAiQuestion' , 'teamBonusQuestion' , 'competitionAiQuestion' , 
@@ -49,7 +49,7 @@ class UserController extends Controller
         $businessQuestion = GeneralQuestion::business()->get();
         $corporateQuestion = GeneralQuestion::corporate()->get();
         $investmentQuestion = GeneralQuestion::investment()->get();
-
+        $goalList = $plan->goals->pluck("title")->toArray();
 
         return view('user.questions.investee_questions')
                     ->with([
@@ -64,7 +64,8 @@ class UserController extends Controller
                         'fundQuestion' => $fundQuestion,
                         'businessQuestion' => $businessQuestion,
                         'corporateQuestion' => $corporateQuestion,
-                        'investmentQuestion' => $investmentQuestion 
+                        'investmentQuestion' => $investmentQuestion,
+                        'goals' => $goalList 
                     ]);
     }
     public function get_general_information()

@@ -1,4 +1,5 @@
 @extends('user.main')
+
 @section('style')
 <style>
   button.save_link {
@@ -65,7 +66,13 @@
        from {transform: rotate(0deg);}
        to {transform: rotate(359deg);}
     }
+
+    .h-100 {
+  height: 89%!important;
+}
+    
 </style>
+<link rel="stylesheet" href="{{asset('css/cards.css')}}">
 @endsection
 @section('main-content')
 {{-- modal starts here --}}
@@ -218,6 +225,18 @@
         <div class="step-name">
           Existing Financial <br>
           Round
+        </div>
+      </div>
+      <div class="stepper-item ">
+        <div class="step-counter num">11</div>
+        <div class="step-counter check">
+          <img src="{{asset('img/check.png')}}" alt="check">
+        </div>
+        <div class="step-counter bi_check">
+          <img src="{{asset('img/bi_check.png')}}" alt="check">
+        </div>
+        <div class="step-name">
+          Goals <br>
         </div>
       </div>
     </div>
@@ -1090,8 +1109,7 @@
 
     
     {{-- Existing Financial Round Starts here --}}
-
-    <div class="form_box @if(!isset($plan->corporateAiQuestion) || is_null($plan->corporateAiQuestion)) d-none @endif">
+    <div class="form_box @if((!isset($plan->corporateAiQuestion) || is_null($plan->corporateAiQuestion)) || (isset($plan->investmentAiQuestion) && !is_null($plan->investmentAiQuestion)) ) d-none @endif">
       <h2 class="form_box_title">Existing Financial Round</h2>
       <form class="form">
         <input type="hidden" class="questionType" name="questionType" value="existing-financial">
@@ -1173,13 +1191,44 @@
           <button type="button" class="btn btn-danger clear_form">Clear</button>
           <div class="d-flex">
             <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
-            <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Done <i class="fas fa-spinner fa-spin d-none"></i></a>
+            <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Next Step <i class="fas fa-spinner fa-spin d-none"></i></a>
+            {{-- <a href="javascript:void(0)" id="market-step" class="btn btn-blue next-step">Done <i class="fas fa-spinner fa-spin d-none"></i></a> --}}
           </div>
         </div>
     </form>
     </div>
 
     {{-- Existing Financial Round ends here --}}
+
+
+
+
+
+
+
+
+
+    {{-- Goal list starts here --}}
+
+    <div class="form_box @if(!isset($plan->investmentAiQuestion) || is_null($plan->investmentAiQuestion)) d-none @endif">
+      <h2 class="form_box_title">Goals</h2>
+        <input type="hidden" id="plan_id" class="plan_id" value="{{$plan->id}}">
+        @include('components.goals')
+
+
+      <div class="form_bottom_links d-flex justify-content-end">
+        <div class="d-flex my-5">
+          <a href="javascript:void(0)" class="btn btn-blue-outline d-flex align-items-center me-4 justify-content-center previous-step">Previous Step</a>
+          <a href="javascript:void(0)" id="market-step" class="btn btn-blue done">Done <i class="fas fa-spinner fa-spin d-none"></i></a>
+        </div>
+      </div>
+    </div>
+
+    {{-- Goal list ends here  --}}
+
+
+
+
 
   </div>
 </div>
@@ -1190,6 +1239,19 @@
 <script>
 
 
+function toggleCheckbox(element , checkboxId) {
+        const checkbox = document.getElementById(checkboxId);
+        checkbox.checked = !checkbox.checked;
+        
+        card = element.classList.contains(".card") ? element : element.closest(".card");
+        if(card.querySelector(".card-checkbox").checked == true){
+          card.classList.add("active")
+        }else{
+          card.classList.remove("active")
+        }
+
+
+      }
 
 // Question form starts here
 
@@ -2033,6 +2095,74 @@ document.querySelectorAll(".clear_form").forEach(btn => {
 
   })
 })
+
+
+document.querySelector(".done").addEventListener("click" , function(){
+  let planId = document.getElementById('plan_id').value;
+  let goals = [];
+  cardCheckbox = document.querySelectorAll(".card-checkbox");
+  cardCheckbox.forEach((checbox)=>{
+      if(checbox.checked == true){
+          goals.push(checbox.value);
+      }
+  })
+
+  if(goals.length === 0){
+      toastr.error("Please Select At Least One Goal");
+  }
+
+  $.ajax({
+      type : 'POST',
+      url : '{{route("add_plan_goal")}}',
+      data : { 
+          planId : planId ,
+          goals : goals,
+          _token : '{{csrf_token()}}'
+          },
+      success: function(res){
+          if(res.success == true){
+              toastr.success(res.msg);
+              window.location.href = "{{url('plan-conclusion',$planId)}}";
+          }else{
+              toastr.error(res.msg);
+          }
+      }
+  })
+})
+//$(document).on("click" , ".done" , function(){
+  //alert("Hi man")
+        // let planId = document.getElementById('plan_id').value;
+        // let goals = [];
+        // cardCheckbox = document.querySelectorAll(".card-checkbox");
+        // cardCheckbox.forEach((checbox)=>{
+        //     if(checbox.checked == true){
+        //         goals.push(checbox.value);
+        //     }
+        // })
+
+        // if(goals.length === 0){
+        //     toastr.error("Please Select At Least One Goal");
+        // }
+
+        // $.ajax({
+        //     type : 'POST',
+        //     url : '{{route("add_plan_goal")}}',
+        //     data : { 
+        //         planId : planId ,
+        //         goals : goals,
+        //         _token : '{{csrf_token()}}'
+        //         },
+        //     success: function(res){
+        //         if(res.success == true){
+        //             toastr.success(res.msg);
+        //             window.location.href = "{{url('plan-conclusion',$planId)}}";
+        //         }else{
+        //             toastr.error(res.msg);
+        //         }
+        //     }
+        // })
+//})
+
 
 
 </script>

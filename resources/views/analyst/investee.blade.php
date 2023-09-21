@@ -107,7 +107,7 @@
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Status</th>
+              {{-- <th scope="col">Status</th> --}}
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -215,7 +215,7 @@
                   columns: [
                       { data: 'name', name: 'name' },
                       { data: 'email', name: 'email' },
-                      { data: 'status', name: 'status' },
+                      // { data: 'status', name: 'status' },
                       { data: 'action', name: 'action' },
                   ]
               });

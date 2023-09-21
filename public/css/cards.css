@@ -6,7 +6,7 @@
 
 .flip-card {
     background-color: transparent;
-    width: 430px;
+    /* width: 370px; */
     height: 430px;
     perspective: 1000px;
 }
@@ -132,7 +132,7 @@
 }
 
 .card-checkbox {
-    display: none;
+    /* display: none; */
 }
 
 
@@ -141,4 +141,9 @@
     border: 4px solid #2575fc;
     border-radius: 9px;
 
+}
+
+
+div#cards-b.active {
+    border: 2px solid #2ca4ff;
 }

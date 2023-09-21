@@ -24,13 +24,13 @@ class InvesteeController extends Controller
                           ->addColumn('email' , function($user){
                             return $user->email;
                           })
-                          ->addColumn('status' , function($user){
-                             return $user->status == "approved" ? '<strong class="text-success investee-status">'.$user->status.'</strong>' : '<strong class="text-danger investee-status">'.$user->status.'</strong>';
-                          })
+                          // ->addColumn('status' , function($user){
+                          //    return $user->status == "approved" ? '<strong class="text-success investee-status">'.$user->status.'</strong>' : '<strong class="text-danger investee-status">'.$user->status.'</strong>';
+                          // })
                           ->addColumn('action' , function($user){
                             return '<a href="javascript:void(0)"><i class="fas fa-trash-alt delete-investee text-danger" data-investee-id="'.$user->id.'"></i></a><a href="javascript:void(0)"><a class="investee-plan" href="'.url("analyst/investee-plan/$user->id").'"> <i class="fas fa-eye view-investee-plan" data-investee-id="'.$user->id.'"></i></a>';
                           })
-                          ->rawColumns(['name','email','status','action'])
+                          ->rawColumns(['name','email','action'])
                           ->make(true);
     }
 
